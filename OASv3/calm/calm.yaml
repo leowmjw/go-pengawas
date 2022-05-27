@@ -1,0 +1,379 @@
+openapi: '3.0.0'
+info:
+  description: The Card Account Lifecycle Management API. Available at [https://www.verygoodsecurity.com](https://www.verygoodsecurity.com)
+  version: 1.0.0
+  title: Card Account Lifecycle Management (CALM) API
+  termsOfService: https://www.verygoodsecurity.com/terms-and-conditions
+  contact:
+    email: dev@verygoodsecurity.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+tags:
+- name: cards
+  description: |
+    Сards enrolled in lifecycle management.
+  x-displayName: cards
+servers:
+  - url: https://calm.sandbox.verygoodsecurity.app
+    description: Sandbox
+  - url: https://calm.live.verygoodsecurity.app
+    description: Live
+externalDocs:
+  description: "Find out more"
+  url: "https://www.verygoodsecurity.com/docs/payment-optimization/calm/overview"
+paths:
+  /cards:
+    post:
+      tags:
+        - cards
+      security:
+        - OAuth2:
+            - "cards:write"
+      summary: Enroll a new card in CALM
+      description: |
+        Enrolls a card to card lifecycle management system for future account update notifications. 
+        CALM will perform both card availability and eligibility checks to check that this specific card is eligible for management.
+        Only Mastercard cards are supported right now.
+      operationId: "enrollCard"
+      requestBody:
+        $ref: '#/components/requestBodies/CardEnrollRequest'
+      responses:
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CardEnrollApiErrorsResponse"
+        202:
+          $ref: '#/components/responses/CardEnrollResponse'
+        422:
+          description: >
+            Unprocessable Entity. Possible error codes:
+              * `card-brand-not-supported`
+              * `account-updater-not-supported`
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CardEnrollApiErrorsResponse"
+              example:
+                errors:
+                  - detail: Provided card brand is not supported.
+                    code: card-brand-not-supported
+                trace_id: ab28bdaad3d6e136e6eb9ce31cca9855
+        default:
+          description: Something went wrong
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorsResponse'
+              example:
+                errors:
+                  - detail: Something went wrong.
+                    code: internal-server-error
+                trace_id: ab28bdaad3d6e136e6eb9ce31cca9855
+  
+  /cards/{cardId}:
+    get:
+      tags:
+        - cards
+      security:
+        - OAuth2:
+            - "cards:read"
+      summary: Get information on a specific enrolled card
+      description: "Returns information of enrolled card with the most up-to-date card information available from issuing banks and all CALM capabilities."
+      operationId: getCard
+      parameters:
+        - name: cardId
+          in: path
+          description: ID of card to fetch
+          required: true
+          schema:
+            type: string
+          example: CRDuVQCsenqj6dbHFQq9gen2E
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardObject'
+        404:
+          description: >
+            Not found. Possible error codes:
+              * `card-not-found`
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CardEnrollApiErrorsResponse"
+              example:
+                errors:
+                  - detail: Card not found.
+                    code: card-not-found
+                trace_id: ab28bdaad3d6e136e6eb9ce31cca9855
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.verygoodsecurity.com/auth/realms/vgs/protocol/openid-connect/token
+          scopes:
+            "cards:write": Grants write access to cards
+            "cards:read": Grants read access to cards
+
+  schemas:
+    ApiErrorsResponse:
+      type: object
+      required:
+        - errors
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+            description: List of errors that occurred while processing the request.
+            minItems: 1
+        trace_id:
+          description: A unique identifier of the failed request.
+          type: string
+          example: ab28bdaad3d6e136e6eb9ce31cca9855
+
+    BillingAddress:
+      type: object
+      description: Customer's billing.
+      properties:
+        name:
+          type: string
+          example: John Doe
+        company:
+          type: string
+          example: John Doe Company
+        address1:
+          type: string
+          example: 555 Unblock Us St
+        address2:
+          type: string
+          example: M13 9PL
+        city:
+          type: string
+          example: New York
+        region:
+          type: string
+          example: NY
+          description: |
+            Principal subdivision in ISO 3166-2
+        country:
+          type: string
+          example: USA
+          description: |
+            Country code in ISO 3166-1 alpha-3
+        postal_code:
+          type: string
+          example: '12301'
+        phone:
+          type: string
+          example: '+14842634673'
+          description: |
+            Telephone number in E.164
+
+    Card:
+      type: object
+      description: Payment card object.
+      required:
+        - name
+        - number
+        - exp_month
+        - exp_year
+      properties:
+        name:
+          description: Card owner's full name.
+          type: string
+          example: John Doe
+        number:
+          description: Customer's card number.
+          type: string
+          example: 5573491171027312
+        exp_month:
+          description: Card's expiration month.
+          type: integer
+          example: 7
+        exp_year:
+          description: Card's expiration year.
+          type: integer
+          example: 24
+        billing_address:
+          $ref: '#/components/schemas/BillingAddress'
+        capabilities:
+          type: array
+          description: CALM capabilities to enable. If blank all products are enrolled.
+          items:
+            type: string
+            enum:
+              - ACCOUNT_UPDATER
+
+    CardData:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          $ref: '#/components/schemas/CardObject'
+
+    CardEnrollApiError:
+      allOf:
+        - $ref: '#/components/schemas/Error' #Include all fields from Error into this schema
+        - type: object
+          properties:
+            code:
+              type: string
+              example: invalid-field
+              enum:
+                - card-brand-not-supported
+                - account-updater-not-supported
+                - card-not-found
+                - merchant-not-found
+                - internal-server-error
+                - invalid-payload
+                - validation-failed
+                - unsupported-media-type
+              description: >
+                Application-specific error code:
+                  * `card-brand-not-supported` - Specified card brand is not supported, only Mastercard cards are supported
+                  * `account-updater-not-supported` - Account Updater is not implemented for your card issuer
+                  * `card-not-found` - Card is not enrolled in CALM
+                  * `merchant-not-found` - No merchant was registered for organization
+                  * `internal-server-error` - Something went wrong
+                  * `invalid-payload` - Invalid request payload
+                  * `validation-failed` - Request validation failed
+                  * `unsupported-media-type` - Request media type is not supported                  
+
+    CardEnrollApiErrorsResponse:
+      type: object
+      required:
+        - errors
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/CardEnrollApiError'
+            description: List of errors that occurred while processing the request.
+            minItems: 1
+        trace_id:
+          description: A unique identifier of the failed request.
+          type: string
+          example: ab28bdaad3d6e136e6eb9ce31cca9855
+
+    CardObject:
+      allOf:
+        - $ref: '#/components/schemas/Card'
+        - type: object
+          required:
+            - id
+            - created_at
+            - updated_at
+            - state
+          properties:
+            id:
+              type: string
+              description: Unique reference identifier for this card
+              example: CRDuVQCsenqj6dbHFQq9gen2E
+            created_at:
+              type: string
+              format: date-time
+              description: Creation time, in UTC.
+              example: "2019-05-15T12:30:45Z"
+            updated_at:
+              type: string
+              format: date-time
+              description: Last time card was updated, in UTC.
+              example: "2019-05-15T12:30:45Z"
+            state:
+              type: string
+              description: >
+                Current state of a card being processed:
+                  * `enrolling` - card is in enrolling state and is not yet available for updates
+                  * `enrolled` - card was successfully enrolled and is available for Push and Pull updates
+                  * `failed` - card enrollment failed, see `failure_code` for details
+                  * `closed` - card was closed, but can still be retrieved
+              enum:
+                - enrolling
+                - enrolled
+                - failed
+                - closed
+            failure_code:
+              type: string
+              enum:
+                - account-updater-not-supported
+                - merchant-not-found
+              description: >
+                Application-specific failure code which can only occur with failed state:
+                  * `account-updater-not-supported` - Account Updater is not implemented for your card issuer
+                  * `merchant-not-found` - No merchant was registered for organization
+
+
+    Error:
+      type: object
+      description: An error object
+      properties:
+        detail:
+          description: Explanation of what exactly went wrong.
+          type: string
+          example: Field "bar" is missing
+
+  requestBodies:
+    CardEnrollRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Card'
+          examples:
+            A:
+              summary: Enroll a payment card (minimal)
+              value:
+                name: John Doe
+                number: 5573491171027312
+                exp_month: 7
+                exp_year: 24
+                capabilities:
+                  - ACCOUNT_UPDATER
+            B:
+              summary: Enroll a payment card (full)
+              value:
+                name: John Doe
+                number: 5573491171027312
+                exp_month: 7
+                exp_year: 24
+                billing_address:
+                  name: John Doe
+                  company: John Doe Company
+                  address1: 555 Unblock Us St
+                  address2: M13 9PL
+                  city: New York
+                  region: NY
+                  country: US
+                  postal_code: 12301
+                  phone: '+14842634673'
+                capabilities:
+                  - ACCOUNT_UPDATER
+
+  responses:
+    CardEnrollResponse:
+      description: Enroll card API response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CardData'
+      headers:
+        Location:
+          schema:
+            type: string
+          description: Location of a resource
+          example: https://calm.sandbox.verygoodsecurity.app/cards/78keTsni3QDbGQPfKBGCP3
+    
+    CardFetchResponse:
+      description: Enroll card API response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CardData'
