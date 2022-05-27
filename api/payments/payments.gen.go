@@ -30,14 +30,12 @@ const (
 
 // Defines values for BooleanOperatorOp.
 const (
-	BooleanOperatorOp BooleanOperatorOp = "!="
 
 	BooleanOperatorOpEqualEqual BooleanOperatorOp = "=="
 )
 
 // Defines values for DateOperatorOp.
 const (
-	DateOperatorOp DateOperatorOp = "!="
 
 	DateOperatorOp1 DateOperatorOp = ">"
 
@@ -99,7 +97,6 @@ const (
 
 // Defines values for FinancialInstrumentIdValueOperatorOp.
 const (
-	FinancialInstrumentIdValueOperatorOp FinancialInstrumentIdValueOperatorOp = "!="
 
 	FinancialInstrumentIdValueOperatorOpEqualEqual FinancialInstrumentIdValueOperatorOp = "=="
 )
@@ -165,7 +162,6 @@ const (
 
 // Defines values for FinancialInstrumentTypeValueOperatorOp.
 const (
-	FinancialInstrumentTypeValueOperatorOp FinancialInstrumentTypeValueOperatorOp = "!="
 
 	FinancialInstrumentTypeValueOperatorOpEqualEqual FinancialInstrumentTypeValueOperatorOp = "=="
 )
@@ -248,7 +244,6 @@ const (
 
 // Defines values for GatewayTypeValueOperatorOp.
 const (
-	GatewayTypeValueOperatorOp GatewayTypeValueOperatorOp = "!="
 
 	GatewayTypeValueOperatorOpEqualEqual GatewayTypeValueOperatorOp = "=="
 )
@@ -274,7 +269,6 @@ const (
 
 // Defines values for IntegerOperatorOp.
 const (
-	IntegerOperatorOp IntegerOperatorOp = "!="
 
 	IntegerOperatorOp1 IntegerOperatorOp = ">"
 
@@ -289,7 +283,6 @@ const (
 
 // Defines values for JSONValueOperatorOp.
 const (
-	JSONValueOperatorOp JSONValueOperatorOp = "!="
 
 	JSONValueOperatorOp1 JSONValueOperatorOp = ">"
 
@@ -382,7 +375,6 @@ const (
 
 // Defines values for RuleActionValueOperatorOp.
 const (
-	RuleActionValueOperatorOp RuleActionValueOperatorOp = "!="
 
 	RuleActionValueOperatorOpEqualEqual RuleActionValueOperatorOp = "=="
 )
@@ -440,7 +432,6 @@ const (
 
 // Defines values for RuleIdValueOperatorOp.
 const (
-	RuleIdValueOperatorOp RuleIdValueOperatorOp = "!="
 
 	RuleIdValueOperatorOpEqualEqual RuleIdValueOperatorOp = "=="
 )
@@ -502,7 +493,6 @@ const (
 
 // Defines values for StringValueOperatorOp.
 const (
-	StringValueOperatorOp StringValueOperatorOp = "!="
 
 	StringValueOperatorOpEqualEqual StringValueOperatorOp = "=="
 
@@ -631,7 +621,6 @@ const (
 
 // Defines values for TransferIdValueOperatorOp.
 const (
-	TransferIdValueOperatorOp TransferIdValueOperatorOp = "!="
 
 	TransferIdValueOperatorOpEqualEqual TransferIdValueOperatorOp = "=="
 )
@@ -695,7 +684,6 @@ const (
 
 // Defines values for TransferStateValueOperatorOp.
 const (
-	TransferStateValueOperatorOp TransferStateValueOperatorOp = "!="
 
 	TransferStateValueOperatorOpEqualEqual TransferStateValueOperatorOp = "=="
 )
@@ -743,7 +731,6 @@ const (
 
 // Defines values for TransferTypeValueOperatorOp.
 const (
-	TransferTypeValueOperatorOp TransferTypeValueOperatorOp = "!="
 
 	TransferTypeValueOperatorOpEqualEqual TransferTypeValueOperatorOp = "=="
 )
