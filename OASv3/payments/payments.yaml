@@ -55,10 +55,6 @@ paths:
       summary: Start a 3DS authentication session
       tags:
         - 3ds
-      security:
-        - OAuth2:
-          - "transfers:write"
-          - "transfers:admin"
       requestBody:
         $ref: '#/components/requestBodies/ThreeDSAuthenticationRequest'
       responses:
@@ -110,10 +106,6 @@ paths:
       summary: Finish the device fingerprint step for 3DS authentication flow
       tags:
         - 3ds
-      security:
-        - OAuth2:
-          - "transfers:write"
-          - "transfers:admin"
       requestBody:
         $ref: '#/components/requestBodies/ThreeDSAuthenticationArbitraryJSONRequest'
       responses:
@@ -134,10 +126,6 @@ paths:
       summary: Finish the challenge step for 3DS authentication flow
       tags:
         - 3ds
-      security:
-        - OAuth2:
-          - "transfers:write"
-          - "transfers:admin"
       requestBody:
         $ref: '#/components/requestBodies/ThreeDSAuthenticationArbitraryJSONRequest'
       responses:
@@ -156,9 +144,6 @@ paths:
       summary: Create a 3DS provider
       tags:
         - 3ds
-      security:
-        - OAuth2:
-          - "3ds:admin"
       requestBody:
         $ref: '#/components/requestBodies/ThreeDSProviderRequest'
       responses:
@@ -178,10 +163,6 @@ paths:
         - $ref: "#/components/parameters/order_id"
       tags:
         - orders
-      security:
-        - OAuth2:
-            - "orders:read"
-            - "orders:admin"
       responses:
         '200':
           $ref: '#/components/responses/OrderDataResponse'
@@ -194,10 +175,6 @@ paths:
       operationId: CreateOrder
       tags: 
        - orders
-      security:
-        - OAuth2:
-          - "orders:write"
-          - "orders:admin"
       requestBody:
           $ref: '#/components/requestBodies/OrderCreateRequest'
       responses:
@@ -219,10 +196,6 @@ paths:
       - $ref: "#/components/parameters/transfer_sorting"
       tags:
         - transfers
-      security:
-        - OAuth2:
-          - "transfers:read"
-          - "transfers:admin"
       responses:
         '200':
           $ref: '#/components/responses/TransferListDataResponse'
@@ -240,10 +213,6 @@ paths:
       summary: Create a transfer
       tags:
         - transfers
-      security:
-        - OAuth2:
-          - "transfers:write"
-          - "transfers:admin"
       requestBody:
         $ref: '#/components/requestBodies/TransferCreateRequest'
       responses:
@@ -261,10 +230,6 @@ paths:
       summary: Retrieve the transfer
       tags:
         - transfers
-      security:
-        - OAuth2:
-          - "transfers:read"
-          - "transfers:admin"
       responses:
         '200':
           $ref: '#/components/responses/TransferDataResponse'
@@ -293,10 +258,6 @@ paths:
       summary: Update the transfer
       tags:
         - transfers
-      security:
-        - OAuth2:
-          - "transfers:write"
-          - "transfers:admin"
       requestBody:
         $ref: '#/components/requestBodies/TransferUpdateRequest'
       responses:
@@ -320,9 +281,6 @@ paths:
       summary: Reverse the transfer
       tags:
         - transfers
-      security:
-        - OAuth2:
-          - "transfers:admin"
       requestBody:
         $ref: '#/components/requestBodies/ReversalRequest'
       responses:
@@ -343,10 +301,6 @@ paths:
       summary: Verify the card
       tags:
         - verifications
-      security:
-        - OAuth2:
-          - "transfers:write"
-          - "transfers:admin"
       requestBody:
         $ref: '#/components/requestBodies/VerificationRequest'
       responses:
@@ -364,14 +318,10 @@ paths:
       parameters:
       - $ref: "#/components/parameters/page"
       - $ref: "#/components/parameters/limit"
-      - $ref: "#/components/parameters/financial_instrument_filter"
+#      - $ref: "#/components/parameters/financial_instrument_filter"
       - $ref: "#/components/parameters/financial_instrument_sorting"
       tags:
         - financial instruments
-      security:
-        - OAuth2:
-          - "financial-instruments:read"
-          - "financial-instruments:admin"
       responses:
         '200':
           $ref: '#/components/responses/FinancialInstrumentListDataResponse'
@@ -385,10 +335,6 @@ paths:
       summary: Create a financial instrument
       tags:
         - financial instruments
-      security:
-        - OAuth2:
-          - "financial-instruments:write"
-          - "financial-instruments:admin"
       requestBody:
         $ref: '#/components/requestBodies/FinancialInstrumentCreateRequest'
       responses:
@@ -406,10 +352,6 @@ paths:
       summary: Retrieve the Financial Instrument
       tags:
         - financial instruments
-      security:
-        - OAuth2:
-          - "financial-instruments:admin"
-          - "financial-instruments:read"
       responses:
         '200':
           $ref: '#/components/responses/FinancialInstrumentResponse'
@@ -423,9 +365,6 @@ paths:
       summary: Delete the Financial Instrument
       tags:
         - financial instruments
-      security:
-        - OAuth2:
-          - "financial-instruments:admin"
       responses:
         '204':
           description: No content
@@ -447,9 +386,6 @@ paths:
       - $ref: "#/components/parameters/gateway_sorting"
       tags:
         - gateways
-      security:
-        - OAuth2:
-          - "gateways:admin"
       responses:
         '200':
           $ref: '#/components/responses/GatewayListDataResponse'
@@ -463,9 +399,6 @@ paths:
       summary: Create a gateway
       tags:
         - gateways
-      security:
-        - OAuth2:
-          - "gateways:admin"
       requestBody:
         $ref: '#/components/requestBodies/GatewayCreateRequest'
       responses:
@@ -485,9 +418,6 @@ paths:
       summary: Retrieve the gateway
       tags:
         - gateways
-      security:
-        - OAuth2:
-          - "gateways:admin"
       responses:
         '200':
           $ref: '#/components/responses/GatewayDataResponse'
@@ -502,9 +432,6 @@ paths:
       summary: Update a gateway
       tags:
         - gateways
-      security:
-        - OAuth2:
-          - "gateways:admin"
       requestBody:
         $ref: '#/components/requestBodies/GatewayUpdateRequest'
       responses:
@@ -520,9 +447,6 @@ paths:
       summary: Delete the gateway
       tags:
         - gateways
-      security:
-        - OAuth2:
-          - "gateways:admin"
       responses:
         '204':
           description: No content
@@ -546,9 +470,6 @@ paths:
       - $ref: "#/components/parameters/rule_sorting"
       tags:
         - rules
-      security:
-        - OAuth2:
-          - "rules:admin"
       responses:
         '200':
           $ref: '#/components/responses/RuleListDataResponse'
@@ -562,9 +483,6 @@ paths:
       summary: Crate a rule
       tags:
         - rules
-      security:
-        - OAuth2:
-          - "rules:admin"
       requestBody:
         $ref: '#/components/requestBodies/RuleCreateRequest'
       responses:
@@ -582,9 +500,6 @@ paths:
       summary: Retrieve the rule
       tags:
         - rules
-      security:
-        - OAuth2:
-          - "rules:admin"
       responses:
         '200':
           $ref: '#/components/responses/RuleResponse'
@@ -598,9 +513,6 @@ paths:
       summary: Update the rule
       tags:
         - rules
-      security:
-        - OAuth2:
-          - "rules:admin"
       requestBody:
         $ref: '#/components/requestBodies/RuleUpdateRequest'
       responses:
@@ -616,9 +528,6 @@ paths:
       summary: Delete the rule
       tags:
         - rules
-      security:
-        - OAuth2:
-          - "rules:admin"
       responses:
         '204':
           description: No content
@@ -823,9 +732,7 @@ components:
       additionalProperties: false
       properties:
         data:
-          oneOf:
-          - $ref: '#/components/schemas/PaymentCardObject'
-          - $ref: '#/components/schemas/PSPTokenObject'
+          $ref: '#/components/schemas/PaymentCardObject'
 
     FinancialInstrumentApiErrors:
       type: object
@@ -835,9 +742,7 @@ components:
         errors:
           type: array
           items:
-            oneOf:
-              - $ref: '#/components/schemas/FinancialInstrumentError'
-              - $ref: '#/components/schemas/GeneralError'
+            $ref: '#/components/schemas/FinancialInstrumentError'
             description: List of errors that occurred while processing the request.
             minItems: 1
         trace_id:
@@ -864,47 +769,10 @@ components:
             minItems: 2
 
     FinancialInstrumentDateOperator:
-      allOf:
-      - $ref: '#/components/schemas/DateOperator'
-      - type: object
-        required:
-          - field
-        properties:
-          field:
-            type: string
-            enum:
-            - created_at
-            - updated_at
+      $ref: '#/components/schemas/DateOperator'
 
     FinancialInstrumentError:
-      allOf:
-        - $ref: '#/components/schemas/Error' #Include all fields from Error into this schema
-        - type: object
-          properties:
-            code:
-              type: string
-              example: invalid-region
-              enum:
-                - invalid-region
-                - invalid-country
-                - invalid-phone
-                - invalid-month
-                - invalid-year
-                - missing-financial-instrument
-                - too-many-financial-instruments
-                - financial-instrument-verification-failed
-                - jwt-token-already-used
-              description: >
-                Application-specific error code:
-                  * `invalid-region` - Specified region is not a valid ISO 3166-2 subdivision
-                  * `invalid-country` - Specified country is not a valid ISO 3166-1 alpha-2 code
-                  * `invalid-phone` - Invalid phone number according to E.164
-                  * `invalid-month` - Invalid month, should be between 1 and 12
-                  * `invalid-year` - Should be some year in a future
-                  * `missing-financial-instrument` - Financial instrument was not present in the payload
-                  * `too-many-financial-instruments` - Only one instrument in payload is allowed
-                  * `financial-instrument-verification-failed` - Financial instrument verification failed
-                  * `jwt-token-already-used` - JWT token has been already used
+      nullable: false
 
     FinancialInstrumentFilter:
       type: array
@@ -914,14 +782,7 @@ components:
         minItems: 1
 
     FinancialInstrumentFilteringOperator:
-      oneOf:
-        - $ref: '#/components/schemas/FinancialInstrumentNotOperator'
-        - $ref: '#/components/schemas/FinancialInstrumentBooleanOperator'
-        - $ref: '#/components/schemas/FinancialInstrumentIdOperator'
-        - $ref: '#/components/schemas/FinancialInstrumentStringOperator'
-        - $ref: '#/components/schemas/FinancialInstrumentTypeOperator'
-        - $ref: '#/components/schemas/FinancialInstrumentDateOperator'
-        - $ref: '#/components/schemas/FinancialInstrumentIntegerOperator'
+        $ref: '#/components/schemas/FinancialInstrumentNotOperator'
 
     FinancialInstrumentIdMemberOperator:
       type: object
@@ -942,18 +803,7 @@ components:
             example: "FN6imeVBVSrfyS62QiE2kFCv"
 
     FinancialInstrumentIdOperator:
-      allOf:
-      - oneOf:
-        - $ref: '#/components/schemas/FinancialInstrumentIdValueOperator'
-        - $ref: '#/components/schemas/FinancialInstrumentIdMemberOperator'
-      - type: object
-        required:
-          - field
-        properties:
-          field:
-            type: string
-            enum:
-            - id
+      nullable: false
 
     FinancialInstrumentIdValueOperator:
       type: object
@@ -972,17 +822,7 @@ components:
           example: "FN6imeVBVSrfyS62QiE2kFCv"
 
     FinancialInstrumentIntegerOperator:
-      allOf:
-      - $ref: '#/components/schemas/IntegerOperator'
-      - type: object
-        required:
-          - field
-        properties:
-          field:
-            type: string
-            enum:
-            - card.exp_month
-            - card.exp_year
+      nullable: false
 
     FinancialInstrumentListData:
       type: object
@@ -1050,22 +890,7 @@ components:
           description: "A FinancialInstrumentFilteringOperator object (recursive)"
 
     FinancialInstrumentStringOperator:
-      allOf:
-      - oneOf:
-        - $ref: '#/components/schemas/StringValueOperator'
-        - $ref: '#/components/schemas/StringMemberOperator'
-      - type: object
-        required:
-          - field
-        properties:
-          field:
-            type: string
-            enum:
-            - card.name
-            - card.number
-            - card.cvc
-            - psp_token.value
-            - psp_token.psp
+      nullable: false
 
     FinancialInstrumentTypeMemberOperator:
       type: object
@@ -1087,18 +912,7 @@ components:
             - psp_token
 
     FinancialInstrumentTypeOperator:
-      allOf:
-      - oneOf:
-        - $ref: '#/components/schemas/FinancialInstrumentTypeValueOperator'
-        - $ref: '#/components/schemas/FinancialInstrumentTypeMemberOperator'
-      - type: object
-        required:
-          - field
-        properties:
-          field:
-            type: string
-            enum:
-            - type
+      nullable: false
 
     FinancialInstrumentTypeValueOperator:
       type: object
@@ -1125,21 +939,7 @@ components:
         minItems: 1
 
     FinancialInstrumentSortingSpec:
-      allOf:
-      - $ref: '#/components/schemas/SortingSpec'
-      - type: object
-        required:
-          - field
-        properties:
-          field:
-            type: string
-            enum:
-            - type
-            - card.name
-            - card.exp_month
-            - card.exp_year
-            - created_at
-            - updated_at
+      nullable: false
 
     Gateway:
       description: |
@@ -1192,16 +992,7 @@ components:
           example: "2021-05-15T12:30:45Z"
 
     GatewayBooleanFieldOperator:
-      allOf:
-      - $ref: '#/components/schemas/BooleanOperator'
-      - type: object
-        required:
-          - field
-        properties:
-          field:
-            type: string
-            enum:
-            - default_gateway
+      nullable: false
 
     GatewayBooleanOperator:
       type: object
@@ -1264,26 +1055,7 @@ components:
           $ref: '#/components/schemas/Gateway'
 
     GatewayError:
-      allOf:
-        - $ref: '#/components/schemas/Error' #Include all fields from Error into this schema
-        - type: object
-          properties:
-            code:
-              type: string
-              example: invalid-psp-type
-              enum:
-                - invalid-psp-type
-                - duplicate-gateway-id
-                - default-gateway-deleting-conflict
-                - default-gateway-unset-conflict
-                - rule-dependency-deleting-conflict
-              description: >
-                Application-specific error code:
-                  * `invalid-psp-type` - The provided PSP type is invalid
-                  * `duplicate-gateway-id` - The provided gateway id already exists
-                  * `default-gateway-deleting-conflict` - Deleting default gateway is not allowed, a new default gateway needs to be created first
-                  * `default-gateway-unset-conflict` - Updating a default gateway to be a non-default gateway is not allowed, a new default gateway needs to be created or assigned first
-                  * `rule-dependency-deleting-conflict` - There are still rules depending on the gateway
+      nullable: false
 
     GatewayFilter:
       type: array
@@ -1293,26 +1065,10 @@ components:
         minItems: 1
 
     GatewayFilteringOperator:
-      oneOf:
-        - $ref: '#/components/schemas/GatewayNotOperator'
-        - $ref: '#/components/schemas/GatewayBooleanOperator'
-        - $ref: '#/components/schemas/GatewayStringOperator'
-        - $ref: '#/components/schemas/GatewayTypeOperator'
-        - $ref: '#/components/schemas/GatewayBooleanFieldOperator'
-        - $ref: '#/components/schemas/GatewayJSONOperator'
+      $ref: '#/components/schemas/GatewayJSONOperator'
 
     GatewayJSONOperator:
-      allOf:
-      - oneOf:
-        - $ref: '#/components/schemas/JSONValueOperator'
-      - type: object
-        required:
-          - field
-        properties:
-          field:
-            type: string
-            enum:
-            - config
+      nullable: false
 
     GatewayListData:
       type: object
@@ -1394,8 +1150,6 @@ components:
           type: string
         shipping_address:
           nullable: true
-          oneOf:
-            - $ref: '#/components/schemas/PhysicalAddress'
       example:
         currency: USD
         shipping_address:
@@ -1424,9 +1178,6 @@ components:
         errors:
           type: array
           items:
-            oneOf:
-              - $ref: '#/components/schemas/GatewayError'
-              - $ref: '#/components/schemas/GeneralError'
             description: List of errors that occurred while processing the request.
             minItems: 1
         trace_id:
@@ -1442,36 +1193,10 @@ components:
         minItems: 1
 
     GatewaySortingSpec:
-      allOf:
-      - $ref: '#/components/schemas/SortingSpec'
-      - type: object
-        required:
-          - field
-        properties:
-          field:
-            type: string
-            enum:
-            - id
-            - type
-            - default_currency
-            - default_gateway
-            - created_at
-            - updated_at
+      nullable: false
 
     GatewayStringOperator:
-      allOf:
-      - oneOf:
-        - $ref: '#/components/schemas/StringValueOperator'
-        - $ref: '#/components/schemas/StringMemberOperator'
-      - type: object
-        required:
-          - field
-        properties:
-          field:
-            type: string
-            enum:
-            - id
-            - default_currency
+      nullable: false
 
     GatewayTypeMemberOperator:
       type: object
@@ -1490,18 +1215,7 @@ components:
             $ref: '#/components/schemas/GatewayPSPType'
 
     GatewayTypeOperator:
-      allOf:
-      - oneOf:
-        - $ref: '#/components/schemas/GatewayTypeValueOperator'
-        - $ref: '#/components/schemas/GatewayTypeMemberOperator'
-      - type: object
-        required:
-          - field
-        properties:
-          field:
-            type: string
-            enum:
-            - type
+      nullable: false
 
     GatewayTypeValueOperator:
       type: object
@@ -1544,32 +1258,7 @@ components:
 
     GeneralError:
       additionalProperties: false
-      allOf:
-        - $ref: '#/components/schemas/Error' #Include all fields from Error into this schema
-        - type: object
-          properties:
-            code:
-              type: string
-              example: internal-server-error
-              enum:
-                - internal-server-error
-                - invalid-payload
-                - invalid-id-format
-                - tenant-not-found
-                - not-found
-                - operation-not-supported-by-gateway
-                - default-gateway-required
-                - missing # Should be removed after https://verygoodsecurity.atlassian.net/browse/PAYOP-422 is done
-              description: >
-                Application-specific error code:
-                  * `invalid-id-format` - Invalid id format
-                  * `invalid-payload` - Payload is invalid
-                  * `internal-server-error` - Internal server error
-                  * `tenant-not-found` - Tenant specified in the request was not found
-                  * `not-found` - Entity could not be found
-                  * `operation-not-supported-by-gateway` - Operation is not support for particular gateway
-                  * `default-gateway-required` - Default gateway is required
-                  * `missing` - Required field is missing
+      nullable: false
 
     IntegerOperator:
       type: object
@@ -1613,15 +1302,9 @@ components:
           type: array
           items:
             type: string 
-        value: 
-          oneOf:
-            - type: string
-            - type: number
-            - type: integer
-            - type: boolean
-            - type: array
-            - type: object
- 
+        value:
+          type: string
+
     BooleanOperator:
       type: object
       required:
@@ -1638,29 +1321,7 @@ components:
 
     Order:
       additionalProperties: false
-      allOf:
-        - type: object
-          properties:
-            id:
-              type: string
-              description: Order ID
-              example: ORDa7sd7a9s7d9as87d9a
-            session_id:
-              type: string
-              format: uuid
-              description: Session ID for redirect to Hosted Page
-              example: 123e4567-e89b-12d3-a456-426655440000
-            created_at:
-              type: string
-              format: date-time
-              description: Creation time, in UTC.
-              example: "2021-05-15T12:30:45Z"
-            updated_at:
-              type: string
-              format: date-time
-              description: Last time order was updated, in UTC.
-              example: "2021-05-15T12:30:45Z"
-        - $ref: '#/components/schemas/OrderCreate' #Include all fields from OrderCreate into this schema
+      nullable: false
 
     OrderApiErrors:
       type: object
@@ -1671,9 +1332,6 @@ components:
         errors:
           type: array
           items:
-            oneOf:
-              - $ref: '#/components/schemas/OrderError'
-              - $ref: '#/components/schemas/GeneralError'
             description: List of errors that occurred while processing the request.
             minItems: 1
         trace_id:
@@ -1767,34 +1425,7 @@ components:
           $ref: '#/components/schemas/Order'
     
     OrderError:
-      allOf:
-        - $ref: '#/components/schemas/Error' #Include all fields from Error into this schema
-        - type: object
-          properties:
-            code:
-              type: string
-              example: invalid-field
-              enum:
-                - invalid-currency
-                - amount-negative-or-zero
-                - discount-negative-or-zero
-                - invalid-success-url
-                - invalid-cancel-url
-                - invalid-error-url
-                - invalid-financial-instrument-types
-                - price-negative-or-zero
-                - quantity-negative-or-zero
-              description: >
-                Application-specific error code:
-                  * `invalid-currency` - Currency must be in format ISO 4217
-                  * `amount-negative-or-zero` - Amount must be greater than zero
-                  * `discount-negative-or-zero` - Discount must be from 0 to 100
-                  * `invalid-success-url` - Provide a valid link with HTTPS
-                  * `invalid-cancel-url` - Provide a valid link with HTTPS
-                  * `invalid-error-url` - Provide a valid link with HTTPS
-                  * `invalid-financial-instrument-types` - Set up one of possible payment methods: apple-pay, google-pay, paypal, card
-                  * `price-negative-or-zero` - Item price must be greater than zero
-                  * `quantity-negative-or-zero` - Item quantity must be greater than zero
+      nullable: false
 
     PaymentCard:
       type: object
@@ -1815,27 +1446,7 @@ components:
           $ref: '#/components/schemas/PaymentCardDetailsCreate'
 
     PaymentCardDetails:
-      allOf:
-        - $ref: '#/components/schemas/PaymentCardDetailsCreate'
-        - type: object
-          description: Payment card object details.
-          required:
-          - brand
-          properties:
-            brand:
-              description: |
-                Brand of card
-              type: string
-              enum:
-              - Visa
-              - MasterCard
-              - AmericanExpress
-              - Discover
-              - JCB
-              - DinersClub
-              - UnionPay
-              - Unknown
-              example: Visa
+      nullable: false
 
     PaymentCardDetailsCreate:
       type: object
@@ -1870,8 +1481,6 @@ components:
           example: "123"
         billing_address:
           nullable: true
-          oneOf:
-            - $ref: '#/components/schemas/PhysicalAddress'
 
     PaymentCardObject:
       type: object
@@ -2075,18 +1684,7 @@ components:
             - route
 
     RuleActionOperator:
-      allOf:
-      - oneOf:
-        - $ref: '#/components/schemas/RuleActionValueOperator'
-        - $ref: '#/components/schemas/RuleActionMemberOperator'
-      - type: object
-        required:
-          - field
-        properties:
-          field:
-            type: string
-            enum:
-            - type
+      nullable: false
 
     RuleActionValueOperator:
       type: object
@@ -2192,34 +1790,11 @@ components:
           $ref: '#/components/schemas/Rule'
 
     RuleDateOperator:
-      allOf:
-      - $ref: '#/components/schemas/DateOperator'
-      - type: object
-        required:
-          - field
-        properties:
-          field:
-            type: string
-            enum:
-            - created_at
-            - updated_at
+      nullable: false
 
     RuleError:
       additionalProperties: false
-      allOf:
-        - $ref: '#/components/schemas/Error' #Include all fields from Error into this schema
-        - type: object
-          properties:
-            code:
-              type: string
-              example: invalid-criteria
-              enum:
-                - invalid-criteria
-                - invalid-route-action
-              description: >
-                Application-specific error code:
-                  * `invalid-criteria` - Invalid criteria for syntax error or semantic error
-                  * `invalid-route-action` - Invalid route action
+      nullable: false
 
     RuleFilter:
       type: array
@@ -2229,14 +1804,7 @@ components:
         minItems: 1
 
     RuleFilteringOperator:
-      oneOf:
-        - $ref: '#/components/schemas/RuleNotOperator'
-        - $ref: '#/components/schemas/RuleBooleanOperator'
-        - $ref: '#/components/schemas/RuleIdOperator'
-        - $ref: '#/components/schemas/RuleStringOperator'
-        - $ref: '#/components/schemas/RuleActionOperator'
-        - $ref: '#/components/schemas/RuleDateOperator'
-        - $ref: '#/components/schemas/RuleIntegerOperator'
+      nullable: false
 
     RuleIdMemberOperator:
       type: object
@@ -2257,18 +1825,7 @@ components:
             example: "RUgV3GsQHWikMAe5SahY1oPe"
 
     RuleIdOperator:
-      allOf:
-      - oneOf:
-        - $ref: '#/components/schemas/RuleIdValueOperator'
-        - $ref: '#/components/schemas/RuleIdMemberOperator'
-      - type: object
-        required:
-          - field
-        properties:
-          field:
-            type: string
-            enum:
-            - id
+      nullable: false
 
     RuleIdValueOperator:
       type: object
@@ -2287,17 +1844,7 @@ components:
           example: "RUgV3GsQHWikMAe5SahY1oPe"
 
     RuleIntegerOperator:
-      allOf:
-      - $ref: '#/components/schemas/IntegerOperator'
-      - type: object
-        required:
-          - field
-        properties:
-          field:
-            type: string
-            enum:
-            - ordinal
-            - active_revision
+      nullable: false
 
     RuleListData:
       type: object
@@ -2373,9 +1920,6 @@ components:
         errors:
           type: array
           items:
-            oneOf:
-              - $ref: '#/components/schemas/RuleError'
-              - $ref: '#/components/schemas/GeneralError'
             description: List of errors that occurred while processing the request.
             minItems: 1
         trace_id:
@@ -2391,35 +1935,10 @@ components:
         minItems: 1
 
     RuleSortingSpec:
-      allOf:
-      - $ref: '#/components/schemas/SortingSpec'
-      - type: object
-        required:
-          - field
-        properties:
-          field:
-            type: string
-            enum:
-            - ordinal
-            - active_revision
-            - created_at
-            - updated_at
+      nullable: false
 
     RuleStringOperator:
-      allOf:
-      - oneOf:
-        - $ref: '#/components/schemas/StringValueOperator'
-        - $ref: '#/components/schemas/StringMemberOperator'
-      - type: object
-        required:
-          - field
-        properties:
-          field:
-            type: string
-            enum:
-            - criteria
-            - description
-            - route_to_gateway
+      nullable: false
 
     RuleUpdate:
       type: object
@@ -2666,9 +2185,6 @@ components:
         errors:
           type: array
           items:
-            oneOf:
-              - $ref: '#/components/schemas/GatewayError'
-              - $ref: '#/components/schemas/GeneralError'
             description: List of errors that occurred while processing the request.
             minItems: 1
         trace_id:
@@ -2682,28 +2198,15 @@ components:
       - type
       - config
       properties:
-        type:
-          $ref: "#/components/schemas/ThreeDSProviderType"
+        type: {}
+#          $ref: "#/components/schemas/ThreeDSProviderType"
         config:
           type: object
           description: |
             Any specific keys passed through to the provider configuration. Refer to docs
 
     ThreeDSProviderError:
-      allOf:
-        - $ref: '#/components/schemas/Error' #Include all fields from Error into this schema
-        - type: object
-          properties:
-            code:
-              type: string
-              example: invalid-three-ds-provider-type
-              enum:
-                - invalid-three-ds-provider-type
-                - duplicate-three-ds-provider
-              description: >
-                Application-specific error code:
-                  * `invalid-three-ds-provider-type` - The provided 3DS provider type is invalid
-                  * `duplicate-three-ds-provider` - A 3DS provider has already been created
+      nullable: false
 
     ThreeDSProviderType:
       type: string
@@ -2947,8 +2450,6 @@ components:
       properties:
         amount:
           nullable: true
-          oneOf:
-            - $ref: '#/components/schemas/Amount'
         gateway_response:
           $ref: '#/components/schemas/TransferGatewayResponse'
         created_at:
@@ -2958,62 +2459,10 @@ components:
           example: "2021-05-15T12:30:45Z"
 
     TransferCreate:
-      allOf:
-      - $ref: '#/components/schemas/TransferCreateBase'
-      - type: object
-        required:
-          - amount
-        properties:
-          amount:
-            $ref: '#/components/schemas/Amount'
-          source_override:
-            description: |
-              Overriding options for the source financial instrument just for this transfer
-            type: object
-            nullable: true
-            properties:
-              card:
-                description: |
-                  Overriding options for the source card financial instrument just for this transfer
-                type: object
-                nullable: true
-                properties:
-                  cvc:
-                    description: |
-                      Card's verification value. This value is needed for a singular transfer or authorization, and is only valid for a single use.
-                    type: string
-                    example: "123"
-                  name:
-                    description: Card owner's full name to override for this transfer.
-                    type: string
-                    nullable: true
-                    example: John Doe
-                  exp_month:
-                    description: Card's expiration month to override for this transfer.
-                    type: integer
-                    nullable: true
-                    example: 10
-                  exp_year:
-                    description: Card's expiration year to override for this transfer.
-                    type: integer
-                    nullable: true
-                    example: 2030
-                  billing_address:
-                    nullable: true
-                    oneOf:
-                      - $ref: '#/components/schemas/PhysicalAddress'
+      nullable: false
 
     TransferCreateFromOrderID:
-      allOf:
-      - $ref: '#/components/schemas/TransferCreateBase'
-      - type: object
-        required:
-          - order_id
-        properties:
-          order_id:
-            type: string
-            description: Order ID
-            example: ORDSuLCY8mXzc1gH7crxZzcbDG
+      nullable: false
 
     TransferData:
       type: object
@@ -3025,52 +2474,11 @@ components:
           $ref: '#/components/schemas/Transfer'
 
     TransferDateOperator:
-      allOf:
-      - $ref: '#/components/schemas/DateOperator'
-      - type: object
-        required:
-          - field
-        properties:
-          field:
-            type: string
-            enum:
-            - created_at
-            - updated_at
+      nullable: false
 
     TransferError:
       additionalProperties: false
-      allOf:
-        - $ref: '#/components/schemas/Error' #Include all fields from Error into this schema
-        - type: object
-          properties:
-            code:
-              type: string
-              example: invalid-field
-              enum:
-                - financial-instrument-not-found
-                - gateway-not-found
-                - blocked-by-rule
-                - jwt-token-already-used
-                - missing-jwt-token
-                - currency-conflicts-during-retry-attempts
-                - invalid-transfer-type
-                - invalid-transfer-state
-                - insufficient-transfer-amount
-                - invalid-amount
-                - order-not-found
-              description: >
-                Application-specific error code:
-                  * `invalid-amount` - The provided amount is not in valid range or missing
-                  * `financial-instrument-not-found` - Specified financial instrument could no be found
-                  * `gateway-not-found` - Gateway not found
-                  * `blocked-by-rule` - Blocked by a rule
-                  * `jwt-token-already-used` - JWT token has been already used
-                  * `missing-jwt-token` - JWT token is missing in the request
-                  * `currency-conflicts-during-retry-attempts` - Currency value changed during retry attempts
-                  * `invalid-transfer-type` - The transfer type is invalid for the operation
-                  * `invalid-transfer-state` - The transfer state is invalid for the operation
-                  * `insufficient-transfer-amount` - The transfer doesn't have enough amount for the operation
-                  * `order-not-found` - No order found for specified order_id
+      nullable: false
 
     TransferFilter:
       type: array
@@ -3080,32 +2488,10 @@ components:
         minItems: 1
 
     TransferFilteringOperator:
-      oneOf:
-        - $ref: '#/components/schemas/TransferNotOperator'
-        - $ref: '#/components/schemas/TransferBooleanOperator'
-        - $ref: '#/components/schemas/TransferIdOperator'
-        - $ref: '#/components/schemas/TransferFinancialInstrumentIdOperator'
-        - $ref: '#/components/schemas/TransferStringOperator'
-        - $ref: '#/components/schemas/TransferTypeOperator'
-        - $ref: '#/components/schemas/TransferStateOperator'
-        - $ref: '#/components/schemas/TransferDateOperator'
-        - $ref: '#/components/schemas/TransferIntegerOperator'
-        - $ref: '#/components/schemas/TransferJSONOperator'
+      nullable: false
 
     TransferFinancialInstrumentIdOperator:
-      allOf:
-      - oneOf:
-        - $ref: '#/components/schemas/FinancialInstrumentIdValueOperator'
-        - $ref: '#/components/schemas/FinancialInstrumentIdMemberOperator'
-      - type: object
-        required:
-          - field
-        properties:
-          field:
-            type: string
-            enum:
-            - source
-            - destination
+      nullable: false
 
     TransferGatewayResponse:
       description: |
@@ -3168,18 +2554,7 @@ components:
             example: "TRSuLCY8mXzc1gH7crxZzcbDG"
 
     TransferIdOperator:
-      allOf:
-      - oneOf:
-        - $ref: '#/components/schemas/TransferIdValueOperator'
-        - $ref: '#/components/schemas/TransferIdMemberOperator'
-      - type: object
-        required:
-          - field
-        properties:
-          field:
-            type: string
-            enum:
-            - id
+      nullable: false
 
     TransferIdValueOperator:
       type: object
@@ -3198,31 +2573,10 @@ components:
           example: "TRSuLCY8mXzc1gH7crxZzcbDG"
 
     TransferIntegerOperator:
-      allOf:
-      - $ref: '#/components/schemas/IntegerOperator'
-      - type: object
-        required:
-          - field
-        properties:
-          field:
-            type: string
-            enum:
-            - amount
-            - amount_reversed
-            - amount_captured
+      nullable: false
 
     TransferJSONOperator:
-      allOf:
-      - oneOf:
-        - $ref: '#/components/schemas/JSONValueOperator'
-      - type: object
-        required:
-          - field
-        properties:
-          field:
-            type: string
-            enum:
-            - gateway_response
+      nullable: false
 
     TransferListData:
       type: object
@@ -3298,9 +2652,6 @@ components:
         errors:
           type: array
           items:
-            oneOf:
-              - $ref: '#/components/schemas/TransferError'
-              - $ref: '#/components/schemas/GeneralError'
             description: List of errors that occurred while processing the request.
             minItems: 1
         trace_id:
@@ -3316,21 +2667,7 @@ components:
         minItems: 1
 
     TransferSortingSpec:
-      allOf:
-      - $ref: '#/components/schemas/SortingSpec'
-      - type: object
-        required:
-          - field
-        properties:
-          field:
-            type: string
-            enum:
-            - currency
-            - amount
-            - amount_reversed
-            - amount_captured
-            - created_at
-            - updated_at
+      nullable: false
 
     TransferStateMemberOperator:
       type: object
@@ -3354,18 +2691,7 @@ components:
             - failed
 
     TransferStateOperator:
-      allOf:
-      - oneOf:
-        - $ref: '#/components/schemas/TransferStateValueOperator'
-        - $ref: '#/components/schemas/TransferStateMemberOperator'
-      - type: object
-        required:
-          - field
-        properties:
-          field:
-            type: string
-            enum:
-            - state
+      nullable: false
 
     TransferStateValueOperator:
       type: object
@@ -3387,19 +2713,7 @@ components:
           - failed
 
     TransferStringOperator:
-      allOf:
-      - oneOf:
-        - $ref: '#/components/schemas/StringValueOperator'
-        - $ref: '#/components/schemas/StringMemberOperator'
-      - type: object
-        required:
-          - field
-        properties:
-          field:
-            type: string
-            enum:
-            - currency
-            - gateway
+      nullable: false
 
     TransferTypeMemberOperator:
       type: object
@@ -3423,18 +2737,7 @@ components:
             - verification
 
     TransferTypeOperator:
-      allOf:
-      - oneOf:
-        - $ref: '#/components/schemas/TransferTypeValueOperator'
-        - $ref: '#/components/schemas/TransferTypeMemberOperator'
-      - type: object
-        required:
-          - field
-        properties:
-          field:
-            type: string
-            enum:
-            - type
+      nullable: false
 
     TransferTypeValueOperator:
       type: object
@@ -3475,12 +2778,7 @@ components:
           $ref: '#/components/schemas/GatewayOptions'
 
     Verification:
-      allOf:
-        - $ref: '#/components/schemas/PaymentCardCreate'
-        - type: object
-          properties:
-            gateway_options:
-              $ref: '#/components/schemas/GatewayOptions'
+      nullable: false
 
     VerificationData:
       type: object
@@ -3592,9 +2890,7 @@ components:
       content:
         application/json:
           schema:
-            oneOf:
-            - $ref: '#/components/schemas/PaymentCardCreate'
-            - $ref: '#/components/schemas/PSPToken'
+            $ref: '#/components/schemas/PaymentCardCreate'
           examples:
             A:
               summary: Store a payment card (minimal)
@@ -3776,9 +3072,7 @@ components:
       content:
         application/json:
           schema:
-            oneOf:
-            - $ref: '#/components/schemas/TransferCreate'
-            - $ref: '#/components/schemas/TransferCreateFromOrderID'
+            $ref: '#/components/schemas/TransferCreate'
           examples:
             A:
               summary: Charge a stored card or PSP token

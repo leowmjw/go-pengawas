@@ -27,9 +27,6 @@ paths:
     post:
       tags:
         - cards
-      security:
-        - OAuth2:
-            - "cards:write"
       summary: Enroll a new card in CALM
       description: |
         Enrolls a card to card lifecycle management system for future account update notifications. 
@@ -77,9 +74,6 @@ paths:
     get:
       tags:
         - cards
-      security:
-        - OAuth2:
-            - "cards:read"
       summary: Get information on a specific enrolled card
       description: "Returns information of enrolled card with the most up-to-date card information available from issuing banks and all CALM capabilities."
       operationId: getCard
@@ -221,32 +215,13 @@ components:
           $ref: '#/components/schemas/CardObject'
 
     CardEnrollApiError:
-      allOf:
-        - $ref: '#/components/schemas/Error' #Include all fields from Error into this schema
-        - type: object
-          properties:
-            code:
-              type: string
-              example: invalid-field
-              enum:
-                - card-brand-not-supported
-                - account-updater-not-supported
-                - card-not-found
-                - merchant-not-found
-                - internal-server-error
-                - invalid-payload
-                - validation-failed
-                - unsupported-media-type
-              description: >
-                Application-specific error code:
-                  * `card-brand-not-supported` - Specified card brand is not supported, only Mastercard cards are supported
-                  * `account-updater-not-supported` - Account Updater is not implemented for your card issuer
-                  * `card-not-found` - Card is not enrolled in CALM
-                  * `merchant-not-found` - No merchant was registered for organization
-                  * `internal-server-error` - Something went wrong
-                  * `invalid-payload` - Invalid request payload
-                  * `validation-failed` - Request validation failed
-                  * `unsupported-media-type` - Request media type is not supported                  
+      type: object
+      description: An error object
+      properties:
+        detail:
+          description: Explanation of what exactly went wrong.
+          type: string
+          example: Field "bar" is missing
 
     CardEnrollApiErrorsResponse:
       type: object
@@ -265,52 +240,39 @@ components:
           example: ab28bdaad3d6e136e6eb9ce31cca9855
 
     CardObject:
-      allOf:
-        - $ref: '#/components/schemas/Card'
-        - type: object
-          required:
-            - id
-            - created_at
-            - updated_at
-            - state
-          properties:
-            id:
-              type: string
-              description: Unique reference identifier for this card
-              example: CRDuVQCsenqj6dbHFQq9gen2E
-            created_at:
-              type: string
-              format: date-time
-              description: Creation time, in UTC.
-              example: "2019-05-15T12:30:45Z"
-            updated_at:
-              type: string
-              format: date-time
-              description: Last time card was updated, in UTC.
-              example: "2019-05-15T12:30:45Z"
-            state:
-              type: string
-              description: >
-                Current state of a card being processed:
-                  * `enrolling` - card is in enrolling state and is not yet available for updates
-                  * `enrolled` - card was successfully enrolled and is available for Push and Pull updates
-                  * `failed` - card enrollment failed, see `failure_code` for details
-                  * `closed` - card was closed, but can still be retrieved
-              enum:
-                - enrolling
-                - enrolled
-                - failed
-                - closed
-            failure_code:
-              type: string
-              enum:
-                - account-updater-not-supported
-                - merchant-not-found
-              description: >
-                Application-specific failure code which can only occur with failed state:
-                  * `account-updater-not-supported` - Account Updater is not implemented for your card issuer
-                  * `merchant-not-found` - No merchant was registered for organization
-
+      type: object
+      description: Payment card object.
+      required:
+        - name
+        - number
+        - exp_month
+        - exp_year
+      properties:
+        name:
+          description: Card owner's full name.
+          type: string
+          example: John Doe
+        number:
+          description: Customer's card number.
+          type: string
+          example: 5573491171027312
+        exp_month:
+          description: Card's expiration month.
+          type: integer
+          example: 7
+        exp_year:
+          description: Card's expiration year.
+          type: integer
+          example: 24
+        billing_address:
+          $ref: '#/components/schemas/BillingAddress'
+        capabilities:
+          type: array
+          description: CALM capabilities to enable. If blank all products are enrolled.
+          items:
+            type: string
+            enum:
+              - ACCOUNT_UPDATER
 
     Error:
       type: object
