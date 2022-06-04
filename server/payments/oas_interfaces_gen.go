@@ -85,16 +85,16 @@ type OrdersOrderIDGetRes interface {
 	ordersOrderIDGetRes()
 }
 
+type R3dsAuthentications3dsAuthenticationIDChallengesPostRes interface {
+	r3dsAuthentications3dsAuthenticationIDChallengesPostRes()
+}
+
+type R3dsAuthentications3dsAuthenticationIDFingerprintsPostRes interface {
+	r3dsAuthentications3dsAuthenticationIDFingerprintsPostRes()
+}
+
 type ReverseTransferByIdRes interface {
 	reverseTransferByIdRes()
-}
-
-type ThreeDSAuthenticationChallengeRes interface {
-	threeDSAuthenticationChallengeRes()
-}
-
-type ThreeDSAuthenticationDeviceFingerprintRes interface {
-	threeDSAuthenticationDeviceFingerprintRes()
 }
 
 type UpdateGatewayByIdRes interface {

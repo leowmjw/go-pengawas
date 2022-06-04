@@ -924,6 +924,86 @@ func decodeOrdersOrderIDGetParams(args [1]string, r *http.Request) (params Order
 	return params, nil
 }
 
+type R3dsAuthentications3dsAuthenticationIDChallengesPostParams struct {
+	// Id of a 3DS authentication.
+	R3dsAuthenticationID string
+}
+
+func decodeR3dsAuthentications3dsAuthenticationIDChallengesPostParams(args [1]string, r *http.Request) (params R3dsAuthentications3dsAuthenticationIDChallengesPostParams, _ error) {
+	// Decode path: 3ds_authentication_id.
+	{
+		param := args[0]
+		if len(param) > 0 {
+			d := uri.NewPathDecoder(uri.PathDecoderConfig{
+				Param:   "3ds_authentication_id",
+				Value:   param,
+				Style:   uri.PathStyleSimple,
+				Explode: false,
+			})
+
+			if err := func() error {
+				val, err := d.DecodeValue()
+				if err != nil {
+					return err
+				}
+
+				c, err := conv.ToString(val)
+				if err != nil {
+					return err
+				}
+
+				params.R3dsAuthenticationID = c
+				return nil
+			}(); err != nil {
+				return params, err
+			}
+		} else {
+			return params, errors.New("path: 3ds_authentication_id: not specified")
+		}
+	}
+	return params, nil
+}
+
+type R3dsAuthentications3dsAuthenticationIDFingerprintsPostParams struct {
+	// Id of a 3DS authentication.
+	R3dsAuthenticationID string
+}
+
+func decodeR3dsAuthentications3dsAuthenticationIDFingerprintsPostParams(args [1]string, r *http.Request) (params R3dsAuthentications3dsAuthenticationIDFingerprintsPostParams, _ error) {
+	// Decode path: 3ds_authentication_id.
+	{
+		param := args[0]
+		if len(param) > 0 {
+			d := uri.NewPathDecoder(uri.PathDecoderConfig{
+				Param:   "3ds_authentication_id",
+				Value:   param,
+				Style:   uri.PathStyleSimple,
+				Explode: false,
+			})
+
+			if err := func() error {
+				val, err := d.DecodeValue()
+				if err != nil {
+					return err
+				}
+
+				c, err := conv.ToString(val)
+				if err != nil {
+					return err
+				}
+
+				params.R3dsAuthenticationID = c
+				return nil
+			}(); err != nil {
+				return params, err
+			}
+		} else {
+			return params, errors.New("path: 3ds_authentication_id: not specified")
+		}
+	}
+	return params, nil
+}
+
 type ReverseTransferByIdParams struct {
 	// Id of a transfer record.
 	TransferID string
@@ -959,86 +1039,6 @@ func decodeReverseTransferByIdParams(args [1]string, r *http.Request) (params Re
 			}
 		} else {
 			return params, errors.New("path: transfer_id: not specified")
-		}
-	}
-	return params, nil
-}
-
-type ThreeDSAuthenticationChallengeParams struct {
-	// Id of a 3DS authentication.
-	R3dsAuthenticationID string
-}
-
-func decodeThreeDSAuthenticationChallengeParams(args [1]string, r *http.Request) (params ThreeDSAuthenticationChallengeParams, _ error) {
-	// Decode path: 3ds_authentication_id.
-	{
-		param := args[0]
-		if len(param) > 0 {
-			d := uri.NewPathDecoder(uri.PathDecoderConfig{
-				Param:   "3ds_authentication_id",
-				Value:   param,
-				Style:   uri.PathStyleSimple,
-				Explode: false,
-			})
-
-			if err := func() error {
-				val, err := d.DecodeValue()
-				if err != nil {
-					return err
-				}
-
-				c, err := conv.ToString(val)
-				if err != nil {
-					return err
-				}
-
-				params.R3dsAuthenticationID = c
-				return nil
-			}(); err != nil {
-				return params, err
-			}
-		} else {
-			return params, errors.New("path: 3ds_authentication_id: not specified")
-		}
-	}
-	return params, nil
-}
-
-type ThreeDSAuthenticationDeviceFingerprintParams struct {
-	// Id of a 3DS authentication.
-	R3dsAuthenticationID string
-}
-
-func decodeThreeDSAuthenticationDeviceFingerprintParams(args [1]string, r *http.Request) (params ThreeDSAuthenticationDeviceFingerprintParams, _ error) {
-	// Decode path: 3ds_authentication_id.
-	{
-		param := args[0]
-		if len(param) > 0 {
-			d := uri.NewPathDecoder(uri.PathDecoderConfig{
-				Param:   "3ds_authentication_id",
-				Value:   param,
-				Style:   uri.PathStyleSimple,
-				Explode: false,
-			})
-
-			if err := func() error {
-				val, err := d.DecodeValue()
-				if err != nil {
-					return err
-				}
-
-				c, err := conv.ToString(val)
-				if err != nil {
-					return err
-				}
-
-				params.R3dsAuthenticationID = c
-				return nil
-			}(); err != nil {
-				return params, err
-			}
-		} else {
-			return params, errors.New("path: 3ds_authentication_id: not specified")
 		}
 	}
 	return params, nil

@@ -1592,6 +1592,160 @@ func decodeOrdersOrderIDGetResponse(resp *http.Response, span trace.Span) (res O
 		}
 	}
 }
+func decodeR3dsAuthentications3dsAuthenticationIDChallengesPostResponse(resp *http.Response, span trace.Span) (res R3dsAuthentications3dsAuthenticationIDChallengesPostRes, err error) {
+	switch resp.StatusCode {
+	case 200:
+		match := func(pattern, value string) bool {
+			ok, _ := path.Match(pattern, value)
+			return ok
+		}
+		_ = match
+		ct, _, err := mime.ParseMediaType(resp.Header.Get("Content-Type"))
+		if err != nil {
+			return res, errors.Wrap(err, "parse media type")
+		}
+		switch {
+		case ct == "application/json":
+			buf := getBuf()
+			defer putBuf(buf)
+			if _, err := io.Copy(buf, resp.Body); err != nil {
+				return res, err
+			}
+
+			d := jx.GetDecoder()
+			defer jx.PutDecoder(d)
+			d.ResetBytes(buf.Bytes())
+
+			var response ThreeDSAuthenticationData
+			if err := func() error {
+				if err := response.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return res, err
+			}
+			return &response, nil
+		default:
+			return res, validate.InvalidContentType(ct)
+		}
+	default:
+		match := func(pattern, value string) bool {
+			ok, _ := path.Match(pattern, value)
+			return ok
+		}
+		_ = match
+		ct, _, err := mime.ParseMediaType(resp.Header.Get("Content-Type"))
+		if err != nil {
+			return res, errors.Wrap(err, "parse media type")
+		}
+		switch {
+		case ct == "application/json":
+			buf := getBuf()
+			defer putBuf(buf)
+			if _, err := io.Copy(buf, resp.Body); err != nil {
+				return res, err
+			}
+
+			d := jx.GetDecoder()
+			defer jx.PutDecoder(d)
+			d.ResetBytes(buf.Bytes())
+
+			var response ApiError
+			if err := func() error {
+				if err := response.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return res, err
+			}
+			return &ApiErrorStatusCode{
+				StatusCode: resp.StatusCode,
+				Response:   response,
+			}, nil
+		default:
+			return res, validate.InvalidContentType(ct)
+		}
+	}
+}
+func decodeR3dsAuthentications3dsAuthenticationIDFingerprintsPostResponse(resp *http.Response, span trace.Span) (res R3dsAuthentications3dsAuthenticationIDFingerprintsPostRes, err error) {
+	switch resp.StatusCode {
+	case 200:
+		match := func(pattern, value string) bool {
+			ok, _ := path.Match(pattern, value)
+			return ok
+		}
+		_ = match
+		ct, _, err := mime.ParseMediaType(resp.Header.Get("Content-Type"))
+		if err != nil {
+			return res, errors.Wrap(err, "parse media type")
+		}
+		switch {
+		case ct == "application/json":
+			buf := getBuf()
+			defer putBuf(buf)
+			if _, err := io.Copy(buf, resp.Body); err != nil {
+				return res, err
+			}
+
+			d := jx.GetDecoder()
+			defer jx.PutDecoder(d)
+			d.ResetBytes(buf.Bytes())
+
+			var response ThreeDSAuthenticationData
+			if err := func() error {
+				if err := response.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return res, err
+			}
+			return &response, nil
+		default:
+			return res, validate.InvalidContentType(ct)
+		}
+	default:
+		match := func(pattern, value string) bool {
+			ok, _ := path.Match(pattern, value)
+			return ok
+		}
+		_ = match
+		ct, _, err := mime.ParseMediaType(resp.Header.Get("Content-Type"))
+		if err != nil {
+			return res, errors.Wrap(err, "parse media type")
+		}
+		switch {
+		case ct == "application/json":
+			buf := getBuf()
+			defer putBuf(buf)
+			if _, err := io.Copy(buf, resp.Body); err != nil {
+				return res, err
+			}
+
+			d := jx.GetDecoder()
+			defer jx.PutDecoder(d)
+			d.ResetBytes(buf.Bytes())
+
+			var response ApiError
+			if err := func() error {
+				if err := response.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return res, err
+			}
+			return &ApiErrorStatusCode{
+				StatusCode: resp.StatusCode,
+				Response:   response,
+			}, nil
+		default:
+			return res, validate.InvalidContentType(ct)
+		}
+	}
+}
 func decodeReverseTransferByIdResponse(resp *http.Response, span trace.Span) (res ReverseTransferByIdRes, err error) {
 	switch resp.StatusCode {
 	case 200:
@@ -1663,160 +1817,6 @@ func decodeReverseTransferByIdResponse(resp *http.Response, span trace.Span) (re
 				return res, err
 			}
 			return &TransfersApiErrorsStatusCode{
-				StatusCode: resp.StatusCode,
-				Response:   response,
-			}, nil
-		default:
-			return res, validate.InvalidContentType(ct)
-		}
-	}
-}
-func decodeThreeDSAuthenticationChallengeResponse(resp *http.Response, span trace.Span) (res ThreeDSAuthenticationChallengeRes, err error) {
-	switch resp.StatusCode {
-	case 200:
-		match := func(pattern, value string) bool {
-			ok, _ := path.Match(pattern, value)
-			return ok
-		}
-		_ = match
-		ct, _, err := mime.ParseMediaType(resp.Header.Get("Content-Type"))
-		if err != nil {
-			return res, errors.Wrap(err, "parse media type")
-		}
-		switch {
-		case ct == "application/json":
-			buf := getBuf()
-			defer putBuf(buf)
-			if _, err := io.Copy(buf, resp.Body); err != nil {
-				return res, err
-			}
-
-			d := jx.GetDecoder()
-			defer jx.PutDecoder(d)
-			d.ResetBytes(buf.Bytes())
-
-			var response ThreeDSAuthenticationData
-			if err := func() error {
-				if err := response.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return res, err
-			}
-			return &response, nil
-		default:
-			return res, validate.InvalidContentType(ct)
-		}
-	default:
-		match := func(pattern, value string) bool {
-			ok, _ := path.Match(pattern, value)
-			return ok
-		}
-		_ = match
-		ct, _, err := mime.ParseMediaType(resp.Header.Get("Content-Type"))
-		if err != nil {
-			return res, errors.Wrap(err, "parse media type")
-		}
-		switch {
-		case ct == "application/json":
-			buf := getBuf()
-			defer putBuf(buf)
-			if _, err := io.Copy(buf, resp.Body); err != nil {
-				return res, err
-			}
-
-			d := jx.GetDecoder()
-			defer jx.PutDecoder(d)
-			d.ResetBytes(buf.Bytes())
-
-			var response ApiError
-			if err := func() error {
-				if err := response.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return res, err
-			}
-			return &ApiErrorStatusCode{
-				StatusCode: resp.StatusCode,
-				Response:   response,
-			}, nil
-		default:
-			return res, validate.InvalidContentType(ct)
-		}
-	}
-}
-func decodeThreeDSAuthenticationDeviceFingerprintResponse(resp *http.Response, span trace.Span) (res ThreeDSAuthenticationDeviceFingerprintRes, err error) {
-	switch resp.StatusCode {
-	case 200:
-		match := func(pattern, value string) bool {
-			ok, _ := path.Match(pattern, value)
-			return ok
-		}
-		_ = match
-		ct, _, err := mime.ParseMediaType(resp.Header.Get("Content-Type"))
-		if err != nil {
-			return res, errors.Wrap(err, "parse media type")
-		}
-		switch {
-		case ct == "application/json":
-			buf := getBuf()
-			defer putBuf(buf)
-			if _, err := io.Copy(buf, resp.Body); err != nil {
-				return res, err
-			}
-
-			d := jx.GetDecoder()
-			defer jx.PutDecoder(d)
-			d.ResetBytes(buf.Bytes())
-
-			var response ThreeDSAuthenticationData
-			if err := func() error {
-				if err := response.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return res, err
-			}
-			return &response, nil
-		default:
-			return res, validate.InvalidContentType(ct)
-		}
-	default:
-		match := func(pattern, value string) bool {
-			ok, _ := path.Match(pattern, value)
-			return ok
-		}
-		_ = match
-		ct, _, err := mime.ParseMediaType(resp.Header.Get("Content-Type"))
-		if err != nil {
-			return res, errors.Wrap(err, "parse media type")
-		}
-		switch {
-		case ct == "application/json":
-			buf := getBuf()
-			defer putBuf(buf)
-			if _, err := io.Copy(buf, resp.Body); err != nil {
-				return res, err
-			}
-
-			d := jx.GetDecoder()
-			defer jx.PutDecoder(d)
-			d.ResetBytes(buf.Bytes())
-
-			var response ApiError
-			if err := func() error {
-				if err := response.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return res, err
-			}
-			return &ApiErrorStatusCode{
 				StatusCode: resp.StatusCode,
 				Response:   response,
 			}, nil

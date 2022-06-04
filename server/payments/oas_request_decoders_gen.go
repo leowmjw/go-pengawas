@@ -619,6 +619,130 @@ func (s *Server) decodeFinalizeTransferRequest(r *http.Request, span trace.Span)
 	}
 }
 
+func (s *Server) decodeR3dsAuthentications3dsAuthenticationIDChallengesPostRequest(r *http.Request, span trace.Span) (
+	req *R3dsAuthentications3dsAuthenticationIDChallengesPostReq,
+	close func() error,
+	rerr error,
+) {
+	var closers []io.Closer
+	close = func() error {
+		var merr error
+		for _, c := range closers {
+			merr = multierr.Append(merr, c.Close())
+		}
+		return merr
+	}
+	defer func() {
+		if rerr != nil {
+			rerr = multierr.Append(rerr, close())
+		}
+	}()
+
+	ct, _, err := mime.ParseMediaType(r.Header.Get("Content-Type"))
+	if err != nil {
+		return req, close, errors.Wrap(err, "parse media type")
+	}
+	switch ct {
+	case "application/json":
+		if r.ContentLength == 0 {
+			return req, close, nil
+		}
+
+		var request *R3dsAuthentications3dsAuthenticationIDChallengesPostReq
+		buf := getBuf()
+		defer putBuf(buf)
+		written, err := io.Copy(buf, r.Body)
+		if err != nil {
+			return req, close, err
+		}
+
+		if written == 0 {
+			return req, close, nil
+		}
+
+		d := jx.GetDecoder()
+		defer jx.PutDecoder(d)
+		d.ResetBytes(buf.Bytes())
+		if err := func() error {
+			request = nil
+			var elem R3dsAuthentications3dsAuthenticationIDChallengesPostReq
+			if err := elem.Decode(d); err != nil {
+				return err
+			}
+			request = &elem
+			return nil
+		}(); err != nil {
+			return req, close, errors.Wrap(err, "decode \"application/json\"")
+		}
+
+		return request, close, nil
+	default:
+		return req, close, validate.InvalidContentType(ct)
+	}
+}
+
+func (s *Server) decodeR3dsAuthentications3dsAuthenticationIDFingerprintsPostRequest(r *http.Request, span trace.Span) (
+	req *R3dsAuthentications3dsAuthenticationIDFingerprintsPostReq,
+	close func() error,
+	rerr error,
+) {
+	var closers []io.Closer
+	close = func() error {
+		var merr error
+		for _, c := range closers {
+			merr = multierr.Append(merr, c.Close())
+		}
+		return merr
+	}
+	defer func() {
+		if rerr != nil {
+			rerr = multierr.Append(rerr, close())
+		}
+	}()
+
+	ct, _, err := mime.ParseMediaType(r.Header.Get("Content-Type"))
+	if err != nil {
+		return req, close, errors.Wrap(err, "parse media type")
+	}
+	switch ct {
+	case "application/json":
+		if r.ContentLength == 0 {
+			return req, close, nil
+		}
+
+		var request *R3dsAuthentications3dsAuthenticationIDFingerprintsPostReq
+		buf := getBuf()
+		defer putBuf(buf)
+		written, err := io.Copy(buf, r.Body)
+		if err != nil {
+			return req, close, err
+		}
+
+		if written == 0 {
+			return req, close, nil
+		}
+
+		d := jx.GetDecoder()
+		defer jx.PutDecoder(d)
+		d.ResetBytes(buf.Bytes())
+		if err := func() error {
+			request = nil
+			var elem R3dsAuthentications3dsAuthenticationIDFingerprintsPostReq
+			if err := elem.Decode(d); err != nil {
+				return err
+			}
+			request = &elem
+			return nil
+		}(); err != nil {
+			return req, close, errors.Wrap(err, "decode \"application/json\"")
+		}
+
+		return request, close, nil
+	default:
+		return req, close, validate.InvalidContentType(ct)
+	}
+}
+
 func (s *Server) decodeReverseTransferByIdRequest(r *http.Request, span trace.Span) (
 	req OptReversal,
 	close func() error,
@@ -686,130 +810,6 @@ func (s *Server) decodeReverseTransferByIdRequest(r *http.Request, span trace.Sp
 			return nil
 		}(); err != nil {
 			return req, close, errors.Wrap(err, "validate")
-		}
-
-		return request, close, nil
-	default:
-		return req, close, validate.InvalidContentType(ct)
-	}
-}
-
-func (s *Server) decodeThreeDSAuthenticationChallengeRequest(r *http.Request, span trace.Span) (
-	req *ThreeDSAuthenticationChallengeReq,
-	close func() error,
-	rerr error,
-) {
-	var closers []io.Closer
-	close = func() error {
-		var merr error
-		for _, c := range closers {
-			merr = multierr.Append(merr, c.Close())
-		}
-		return merr
-	}
-	defer func() {
-		if rerr != nil {
-			rerr = multierr.Append(rerr, close())
-		}
-	}()
-
-	ct, _, err := mime.ParseMediaType(r.Header.Get("Content-Type"))
-	if err != nil {
-		return req, close, errors.Wrap(err, "parse media type")
-	}
-	switch ct {
-	case "application/json":
-		if r.ContentLength == 0 {
-			return req, close, nil
-		}
-
-		var request *ThreeDSAuthenticationChallengeReq
-		buf := getBuf()
-		defer putBuf(buf)
-		written, err := io.Copy(buf, r.Body)
-		if err != nil {
-			return req, close, err
-		}
-
-		if written == 0 {
-			return req, close, nil
-		}
-
-		d := jx.GetDecoder()
-		defer jx.PutDecoder(d)
-		d.ResetBytes(buf.Bytes())
-		if err := func() error {
-			request = nil
-			var elem ThreeDSAuthenticationChallengeReq
-			if err := elem.Decode(d); err != nil {
-				return err
-			}
-			request = &elem
-			return nil
-		}(); err != nil {
-			return req, close, errors.Wrap(err, "decode \"application/json\"")
-		}
-
-		return request, close, nil
-	default:
-		return req, close, validate.InvalidContentType(ct)
-	}
-}
-
-func (s *Server) decodeThreeDSAuthenticationDeviceFingerprintRequest(r *http.Request, span trace.Span) (
-	req *ThreeDSAuthenticationDeviceFingerprintReq,
-	close func() error,
-	rerr error,
-) {
-	var closers []io.Closer
-	close = func() error {
-		var merr error
-		for _, c := range closers {
-			merr = multierr.Append(merr, c.Close())
-		}
-		return merr
-	}
-	defer func() {
-		if rerr != nil {
-			rerr = multierr.Append(rerr, close())
-		}
-	}()
-
-	ct, _, err := mime.ParseMediaType(r.Header.Get("Content-Type"))
-	if err != nil {
-		return req, close, errors.Wrap(err, "parse media type")
-	}
-	switch ct {
-	case "application/json":
-		if r.ContentLength == 0 {
-			return req, close, nil
-		}
-
-		var request *ThreeDSAuthenticationDeviceFingerprintReq
-		buf := getBuf()
-		defer putBuf(buf)
-		written, err := io.Copy(buf, r.Body)
-		if err != nil {
-			return req, close, err
-		}
-
-		if written == 0 {
-			return req, close, nil
-		}
-
-		d := jx.GetDecoder()
-		defer jx.PutDecoder(d)
-		d.ResetBytes(buf.Bytes())
-		if err := func() error {
-			request = nil
-			var elem ThreeDSAuthenticationDeviceFingerprintReq
-			if err := elem.Decode(d); err != nil {
-				return err
-			}
-			request = &elem
-			return nil
-		}(); err != nil {
-			return req, close, errors.Wrap(err, "decode \"application/json\"")
 		}
 
 		return request, close, nil

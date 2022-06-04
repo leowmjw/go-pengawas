@@ -164,26 +164,26 @@ type Handler interface {
 	//
 	// GET /orders/{order_id}
 	OrdersOrderIDGet(ctx context.Context, params OrdersOrderIDGetParams) (OrdersOrderIDGetRes, error)
+	// R3dsAuthentications3dsAuthenticationIDChallengesPost implements  operation.
+	//
+	// Finish the challenge step for the 3DS authentication session.
+	// Mainly to be invoked by VGS checkout.js, not meant to be called by user directly.
+	//
+	// POST /3ds_authentications/{3ds_authentication_id}/challenges
+	R3dsAuthentications3dsAuthenticationIDChallengesPost(ctx context.Context, req *R3dsAuthentications3dsAuthenticationIDChallengesPostReq, params R3dsAuthentications3dsAuthenticationIDChallengesPostParams) (R3dsAuthentications3dsAuthenticationIDChallengesPostRes, error)
+	// R3dsAuthentications3dsAuthenticationIDFingerprintsPost implements  operation.
+	//
+	// Finish the device fingerprint step for the 3DS authentication session.
+	// Mainly to be invoked by VGS checkout.js, not meant to be called by user directly.
+	//
+	// POST /3ds_authentications/{3ds_authentication_id}/fingerprints
+	R3dsAuthentications3dsAuthenticationIDFingerprintsPost(ctx context.Context, req *R3dsAuthentications3dsAuthenticationIDFingerprintsPostReq, params R3dsAuthentications3dsAuthenticationIDFingerprintsPostParams) (R3dsAuthentications3dsAuthenticationIDFingerprintsPostRes, error)
 	// ReverseTransferById implements ReverseTransferById operation.
 	//
 	// Reverse a specific transfer by id.
 	//
 	// POST /transfers/{transfer_id}/reversals
 	ReverseTransferById(ctx context.Context, req OptReversal, params ReverseTransferByIdParams) (ReverseTransferByIdRes, error)
-	// ThreeDSAuthenticationChallenge implements ThreeDSAuthenticationChallenge operation.
-	//
-	// Finish the challenge step for the 3DS authentication session.
-	// Mainly to be invoked by VGS checkout.js, not meant to be called by user directly.
-	//
-	// POST /3ds_authentications/{3ds_authentication_id}/challenges
-	ThreeDSAuthenticationChallenge(ctx context.Context, req *ThreeDSAuthenticationChallengeReq, params ThreeDSAuthenticationChallengeParams) (ThreeDSAuthenticationChallengeRes, error)
-	// ThreeDSAuthenticationDeviceFingerprint implements ThreeDSAuthenticationDeviceFingerprint operation.
-	//
-	// Finish the device fingerprint step for the 3DS authentication session.
-	// Mainly to be invoked by VGS checkout.js, not meant to be called by user directly.
-	//
-	// POST /3ds_authentications/{3ds_authentication_id}/fingerprints
-	ThreeDSAuthenticationDeviceFingerprint(ctx context.Context, req *ThreeDSAuthenticationDeviceFingerprintReq, params ThreeDSAuthenticationDeviceFingerprintParams) (ThreeDSAuthenticationDeviceFingerprintRes, error)
 	// UpdateGatewayById implements UpdateGatewayById operation.
 	//
 	// Update a particular gateway by id.

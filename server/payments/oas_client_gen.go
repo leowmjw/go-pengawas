@@ -1529,6 +1529,164 @@ func (c *Client) OrdersOrderIDGet(ctx context.Context, params OrdersOrderIDGetPa
 	return result, nil
 }
 
+// R3dsAuthentications3dsAuthenticationIDChallengesPost invokes  operation.
+//
+// Finish the challenge step for the 3DS authentication session.
+// Mainly to be invoked by VGS checkout.js, not meant to be called by user directly.
+//
+// POST /3ds_authentications/{3ds_authentication_id}/challenges
+func (c *Client) R3dsAuthentications3dsAuthenticationIDChallengesPost(ctx context.Context, request *R3dsAuthentications3dsAuthenticationIDChallengesPostReq, params R3dsAuthentications3dsAuthenticationIDChallengesPostParams) (res R3dsAuthentications3dsAuthenticationIDChallengesPostRes, err error) {
+	startTime := time.Now()
+	otelAttrs := []attribute.KeyValue{}
+	ctx, span := c.cfg.Tracer.Start(ctx, "R3dsAuthentications3dsAuthenticationIDChallengesPost",
+		trace.WithAttributes(otelAttrs...),
+		trace.WithSpanKind(trace.SpanKindClient),
+	)
+	defer func() {
+		if err != nil {
+			span.RecordError(err)
+			c.errors.Add(ctx, 1, otelAttrs...)
+		} else {
+			elapsedDuration := time.Since(startTime)
+			c.duration.Record(ctx, elapsedDuration.Microseconds(), otelAttrs...)
+		}
+		span.End()
+	}()
+	c.requests.Add(ctx, 1, otelAttrs...)
+	var (
+		contentType string
+		reqBody     func() (io.ReadCloser, error)
+	)
+	contentType = "application/json"
+	fn, err := encodeR3dsAuthentications3dsAuthenticationIDChallengesPostRequestJSON(request, span)
+	if err != nil {
+		return res, err
+	}
+	reqBody = fn
+
+	u := uri.Clone(c.serverURL)
+	u.Path += "/3ds_authentications/"
+	{
+		// Encode "3ds_authentication_id" parameter.
+		e := uri.NewPathEncoder(uri.PathEncoderConfig{
+			Param:   "3ds_authentication_id",
+			Style:   uri.PathStyleSimple,
+			Explode: false,
+		})
+		if err := func() error {
+			return e.EncodeValue(conv.StringToString(params.R3dsAuthenticationID))
+		}(); err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		u.Path += e.Result()
+	}
+	u.Path += "/challenges"
+
+	body, err := reqBody()
+	if err != nil {
+		return res, errors.Wrap(err, "request body")
+	}
+	defer body.Close()
+
+	r := ht.NewRequest(ctx, "POST", u, body)
+	defer ht.PutRequest(r)
+	r.GetBody = reqBody
+
+	r.Header.Set("Content-Type", contentType)
+
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	defer resp.Body.Close()
+
+	result, err := decodeR3dsAuthentications3dsAuthenticationIDChallengesPostResponse(resp, span)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
+// R3dsAuthentications3dsAuthenticationIDFingerprintsPost invokes  operation.
+//
+// Finish the device fingerprint step for the 3DS authentication session.
+// Mainly to be invoked by VGS checkout.js, not meant to be called by user directly.
+//
+// POST /3ds_authentications/{3ds_authentication_id}/fingerprints
+func (c *Client) R3dsAuthentications3dsAuthenticationIDFingerprintsPost(ctx context.Context, request *R3dsAuthentications3dsAuthenticationIDFingerprintsPostReq, params R3dsAuthentications3dsAuthenticationIDFingerprintsPostParams) (res R3dsAuthentications3dsAuthenticationIDFingerprintsPostRes, err error) {
+	startTime := time.Now()
+	otelAttrs := []attribute.KeyValue{}
+	ctx, span := c.cfg.Tracer.Start(ctx, "R3dsAuthentications3dsAuthenticationIDFingerprintsPost",
+		trace.WithAttributes(otelAttrs...),
+		trace.WithSpanKind(trace.SpanKindClient),
+	)
+	defer func() {
+		if err != nil {
+			span.RecordError(err)
+			c.errors.Add(ctx, 1, otelAttrs...)
+		} else {
+			elapsedDuration := time.Since(startTime)
+			c.duration.Record(ctx, elapsedDuration.Microseconds(), otelAttrs...)
+		}
+		span.End()
+	}()
+	c.requests.Add(ctx, 1, otelAttrs...)
+	var (
+		contentType string
+		reqBody     func() (io.ReadCloser, error)
+	)
+	contentType = "application/json"
+	fn, err := encodeR3dsAuthentications3dsAuthenticationIDFingerprintsPostRequestJSON(request, span)
+	if err != nil {
+		return res, err
+	}
+	reqBody = fn
+
+	u := uri.Clone(c.serverURL)
+	u.Path += "/3ds_authentications/"
+	{
+		// Encode "3ds_authentication_id" parameter.
+		e := uri.NewPathEncoder(uri.PathEncoderConfig{
+			Param:   "3ds_authentication_id",
+			Style:   uri.PathStyleSimple,
+			Explode: false,
+		})
+		if err := func() error {
+			return e.EncodeValue(conv.StringToString(params.R3dsAuthenticationID))
+		}(); err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		u.Path += e.Result()
+	}
+	u.Path += "/fingerprints"
+
+	body, err := reqBody()
+	if err != nil {
+		return res, errors.Wrap(err, "request body")
+	}
+	defer body.Close()
+
+	r := ht.NewRequest(ctx, "POST", u, body)
+	defer ht.PutRequest(r)
+	r.GetBody = reqBody
+
+	r.Header.Set("Content-Type", contentType)
+
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	defer resp.Body.Close()
+
+	result, err := decodeR3dsAuthentications3dsAuthenticationIDFingerprintsPostResponse(resp, span)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
 // ReverseTransferById invokes ReverseTransferById operation.
 //
 // Reverse a specific transfer by id.
@@ -1617,168 +1775,6 @@ func (c *Client) ReverseTransferById(ctx context.Context, request OptReversal, p
 	defer resp.Body.Close()
 
 	result, err := decodeReverseTransferByIdResponse(resp, span)
-	if err != nil {
-		return res, errors.Wrap(err, "decode response")
-	}
-
-	return result, nil
-}
-
-// ThreeDSAuthenticationChallenge invokes ThreeDSAuthenticationChallenge operation.
-//
-// Finish the challenge step for the 3DS authentication session.
-// Mainly to be invoked by VGS checkout.js, not meant to be called by user directly.
-//
-// POST /3ds_authentications/{3ds_authentication_id}/challenges
-func (c *Client) ThreeDSAuthenticationChallenge(ctx context.Context, request *ThreeDSAuthenticationChallengeReq, params ThreeDSAuthenticationChallengeParams) (res ThreeDSAuthenticationChallengeRes, err error) {
-	startTime := time.Now()
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("ThreeDSAuthenticationChallenge"),
-	}
-	ctx, span := c.cfg.Tracer.Start(ctx, "ThreeDSAuthenticationChallenge",
-		trace.WithAttributes(otelAttrs...),
-		trace.WithSpanKind(trace.SpanKindClient),
-	)
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			c.errors.Add(ctx, 1, otelAttrs...)
-		} else {
-			elapsedDuration := time.Since(startTime)
-			c.duration.Record(ctx, elapsedDuration.Microseconds(), otelAttrs...)
-		}
-		span.End()
-	}()
-	c.requests.Add(ctx, 1, otelAttrs...)
-	var (
-		contentType string
-		reqBody     func() (io.ReadCloser, error)
-	)
-	contentType = "application/json"
-	fn, err := encodeThreeDSAuthenticationChallengeRequestJSON(request, span)
-	if err != nil {
-		return res, err
-	}
-	reqBody = fn
-
-	u := uri.Clone(c.serverURL)
-	u.Path += "/3ds_authentications/"
-	{
-		// Encode "3ds_authentication_id" parameter.
-		e := uri.NewPathEncoder(uri.PathEncoderConfig{
-			Param:   "3ds_authentication_id",
-			Style:   uri.PathStyleSimple,
-			Explode: false,
-		})
-		if err := func() error {
-			return e.EncodeValue(conv.StringToString(params.R3dsAuthenticationID))
-		}(); err != nil {
-			return res, errors.Wrap(err, "encode path")
-		}
-		u.Path += e.Result()
-	}
-	u.Path += "/challenges"
-
-	body, err := reqBody()
-	if err != nil {
-		return res, errors.Wrap(err, "request body")
-	}
-	defer body.Close()
-
-	r := ht.NewRequest(ctx, "POST", u, body)
-	defer ht.PutRequest(r)
-	r.GetBody = reqBody
-
-	r.Header.Set("Content-Type", contentType)
-
-	resp, err := c.cfg.Client.Do(r)
-	if err != nil {
-		return res, errors.Wrap(err, "do request")
-	}
-	defer resp.Body.Close()
-
-	result, err := decodeThreeDSAuthenticationChallengeResponse(resp, span)
-	if err != nil {
-		return res, errors.Wrap(err, "decode response")
-	}
-
-	return result, nil
-}
-
-// ThreeDSAuthenticationDeviceFingerprint invokes ThreeDSAuthenticationDeviceFingerprint operation.
-//
-// Finish the device fingerprint step for the 3DS authentication session.
-// Mainly to be invoked by VGS checkout.js, not meant to be called by user directly.
-//
-// POST /3ds_authentications/{3ds_authentication_id}/fingerprints
-func (c *Client) ThreeDSAuthenticationDeviceFingerprint(ctx context.Context, request *ThreeDSAuthenticationDeviceFingerprintReq, params ThreeDSAuthenticationDeviceFingerprintParams) (res ThreeDSAuthenticationDeviceFingerprintRes, err error) {
-	startTime := time.Now()
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("ThreeDSAuthenticationDeviceFingerprint"),
-	}
-	ctx, span := c.cfg.Tracer.Start(ctx, "ThreeDSAuthenticationDeviceFingerprint",
-		trace.WithAttributes(otelAttrs...),
-		trace.WithSpanKind(trace.SpanKindClient),
-	)
-	defer func() {
-		if err != nil {
-			span.RecordError(err)
-			c.errors.Add(ctx, 1, otelAttrs...)
-		} else {
-			elapsedDuration := time.Since(startTime)
-			c.duration.Record(ctx, elapsedDuration.Microseconds(), otelAttrs...)
-		}
-		span.End()
-	}()
-	c.requests.Add(ctx, 1, otelAttrs...)
-	var (
-		contentType string
-		reqBody     func() (io.ReadCloser, error)
-	)
-	contentType = "application/json"
-	fn, err := encodeThreeDSAuthenticationDeviceFingerprintRequestJSON(request, span)
-	if err != nil {
-		return res, err
-	}
-	reqBody = fn
-
-	u := uri.Clone(c.serverURL)
-	u.Path += "/3ds_authentications/"
-	{
-		// Encode "3ds_authentication_id" parameter.
-		e := uri.NewPathEncoder(uri.PathEncoderConfig{
-			Param:   "3ds_authentication_id",
-			Style:   uri.PathStyleSimple,
-			Explode: false,
-		})
-		if err := func() error {
-			return e.EncodeValue(conv.StringToString(params.R3dsAuthenticationID))
-		}(); err != nil {
-			return res, errors.Wrap(err, "encode path")
-		}
-		u.Path += e.Result()
-	}
-	u.Path += "/fingerprints"
-
-	body, err := reqBody()
-	if err != nil {
-		return res, errors.Wrap(err, "request body")
-	}
-	defer body.Close()
-
-	r := ht.NewRequest(ctx, "POST", u, body)
-	defer ht.PutRequest(r)
-	r.GetBody = reqBody
-
-	r.Header.Set("Content-Type", contentType)
-
-	resp, err := c.cfg.Client.Do(r)
-	if err != nil {
-		return res, errors.Wrap(err, "do request")
-	}
-	defer resp.Body.Close()
-
-	result, err := decodeThreeDSAuthenticationDeviceFingerprintResponse(resp, span)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
 	}

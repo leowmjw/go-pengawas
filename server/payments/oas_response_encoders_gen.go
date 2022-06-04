@@ -837,6 +837,80 @@ func encodeOrdersOrderIDGetResponse(response OrdersOrderIDGetRes, w http.Respons
 		return errors.Errorf("/orders/{order_id}"+`: unexpected response type: %T`, response)
 	}
 }
+func encodeR3dsAuthentications3dsAuthenticationIDChallengesPostResponse(response R3dsAuthentications3dsAuthenticationIDChallengesPostRes, w http.ResponseWriter, span trace.Span) error {
+	switch response := response.(type) {
+	case *ThreeDSAuthenticationData:
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(200)
+		span.SetStatus(codes.Ok, http.StatusText(200))
+		e := jx.GetEncoder()
+		defer jx.PutEncoder(e)
+
+		response.Encode(e)
+		if _, err := e.WriteTo(w); err != nil {
+			return errors.Wrap(err, "write")
+		}
+		return nil
+
+	case *ApiErrorStatusCode:
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(response.StatusCode)
+		st := http.StatusText(response.StatusCode)
+		if response.StatusCode >= http.StatusBadRequest {
+			span.SetStatus(codes.Error, st)
+		} else {
+			span.SetStatus(codes.Ok, st)
+		}
+		e := jx.GetEncoder()
+		defer jx.PutEncoder(e)
+
+		response.Response.Encode(e)
+		if _, err := e.WriteTo(w); err != nil {
+			return errors.Wrap(err, "write")
+		}
+		return nil
+
+	default:
+		return errors.Errorf("/3ds_authentications/{3ds_authentication_id}/challenges"+`: unexpected response type: %T`, response)
+	}
+}
+func encodeR3dsAuthentications3dsAuthenticationIDFingerprintsPostResponse(response R3dsAuthentications3dsAuthenticationIDFingerprintsPostRes, w http.ResponseWriter, span trace.Span) error {
+	switch response := response.(type) {
+	case *ThreeDSAuthenticationData:
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(200)
+		span.SetStatus(codes.Ok, http.StatusText(200))
+		e := jx.GetEncoder()
+		defer jx.PutEncoder(e)
+
+		response.Encode(e)
+		if _, err := e.WriteTo(w); err != nil {
+			return errors.Wrap(err, "write")
+		}
+		return nil
+
+	case *ApiErrorStatusCode:
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(response.StatusCode)
+		st := http.StatusText(response.StatusCode)
+		if response.StatusCode >= http.StatusBadRequest {
+			span.SetStatus(codes.Error, st)
+		} else {
+			span.SetStatus(codes.Ok, st)
+		}
+		e := jx.GetEncoder()
+		defer jx.PutEncoder(e)
+
+		response.Response.Encode(e)
+		if _, err := e.WriteTo(w); err != nil {
+			return errors.Wrap(err, "write")
+		}
+		return nil
+
+	default:
+		return errors.Errorf("/3ds_authentications/{3ds_authentication_id}/fingerprints"+`: unexpected response type: %T`, response)
+	}
+}
 func encodeReverseTransferByIdResponse(response ReverseTransferByIdRes, w http.ResponseWriter, span trace.Span) error {
 	switch response := response.(type) {
 	case *TransferData:
@@ -877,80 +951,6 @@ func encodeReverseTransferByIdResponse(response ReverseTransferByIdRes, w http.R
 
 	default:
 		return errors.Errorf("/transfers/{transfer_id}/reversals"+`: unexpected response type: %T`, response)
-	}
-}
-func encodeThreeDSAuthenticationChallengeResponse(response ThreeDSAuthenticationChallengeRes, w http.ResponseWriter, span trace.Span) error {
-	switch response := response.(type) {
-	case *ThreeDSAuthenticationData:
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(200)
-		span.SetStatus(codes.Ok, http.StatusText(200))
-		e := jx.GetEncoder()
-		defer jx.PutEncoder(e)
-
-		response.Encode(e)
-		if _, err := e.WriteTo(w); err != nil {
-			return errors.Wrap(err, "write")
-		}
-		return nil
-
-	case *ApiErrorStatusCode:
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(response.StatusCode)
-		st := http.StatusText(response.StatusCode)
-		if response.StatusCode >= http.StatusBadRequest {
-			span.SetStatus(codes.Error, st)
-		} else {
-			span.SetStatus(codes.Ok, st)
-		}
-		e := jx.GetEncoder()
-		defer jx.PutEncoder(e)
-
-		response.Response.Encode(e)
-		if _, err := e.WriteTo(w); err != nil {
-			return errors.Wrap(err, "write")
-		}
-		return nil
-
-	default:
-		return errors.Errorf("/3ds_authentications/{3ds_authentication_id}/challenges"+`: unexpected response type: %T`, response)
-	}
-}
-func encodeThreeDSAuthenticationDeviceFingerprintResponse(response ThreeDSAuthenticationDeviceFingerprintRes, w http.ResponseWriter, span trace.Span) error {
-	switch response := response.(type) {
-	case *ThreeDSAuthenticationData:
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(200)
-		span.SetStatus(codes.Ok, http.StatusText(200))
-		e := jx.GetEncoder()
-		defer jx.PutEncoder(e)
-
-		response.Encode(e)
-		if _, err := e.WriteTo(w); err != nil {
-			return errors.Wrap(err, "write")
-		}
-		return nil
-
-	case *ApiErrorStatusCode:
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(response.StatusCode)
-		st := http.StatusText(response.StatusCode)
-		if response.StatusCode >= http.StatusBadRequest {
-			span.SetStatus(codes.Error, st)
-		} else {
-			span.SetStatus(codes.Ok, st)
-		}
-		e := jx.GetEncoder()
-		defer jx.PutEncoder(e)
-
-		response.Response.Encode(e)
-		if _, err := e.WriteTo(w); err != nil {
-			return errors.Wrap(err, "write")
-		}
-		return nil
-
-	default:
-		return errors.Errorf("/3ds_authentications/{3ds_authentication_id}/fingerprints"+`: unexpected response type: %T`, response)
 	}
 }
 func encodeUpdateGatewayByIdResponse(response UpdateGatewayByIdRes, w http.ResponseWriter, span trace.Span) error {

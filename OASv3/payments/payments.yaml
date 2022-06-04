@@ -102,7 +102,7 @@ paths:
         Finish the device fingerprint step for the 3DS authentication session.
 
         Mainly to be invoked by VGS checkout.js, not meant to be called by user directly.
-      operationId: ThreeDSAuthenticationDeviceFingerprint
+#      operationId: ThreeDSAuthenticationDeviceFingerprint
       summary: Finish the device fingerprint step for 3DS authentication flow
       tags:
         - 3ds
@@ -122,7 +122,7 @@ paths:
         Finish the challenge step for the 3DS authentication session.
 
         Mainly to be invoked by VGS checkout.js, not meant to be called by user directly.
-      operationId: ThreeDSAuthenticationChallenge
+#      operationId: ThreeDSAuthenticationChallenge
       summary: Finish the challenge step for 3DS authentication flow
       tags:
         - 3ds

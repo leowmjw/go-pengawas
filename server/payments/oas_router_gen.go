@@ -353,8 +353,8 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 								}
 
 								if len(elem) == 0 {
-									// Leaf: ThreeDSAuthenticationChallenge
-									s.handleThreeDSAuthenticationChallengeRequest([1]string{
+									// Leaf: R3dsAuthentications3dsAuthenticationIDChallengesPost
+									s.handleR3dsAuthentications3dsAuthenticationIDChallengesPostRequest([1]string{
 										args[0],
 									}, w, r)
 
@@ -368,8 +368,8 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 								}
 
 								if len(elem) == 0 {
-									// Leaf: ThreeDSAuthenticationDeviceFingerprint
-									s.handleThreeDSAuthenticationDeviceFingerprintRequest([1]string{
+									// Leaf: R3dsAuthentications3dsAuthenticationIDFingerprintsPost
+									s.handleR3dsAuthentications3dsAuthenticationIDFingerprintsPostRequest([1]string{
 										args[0],
 									}, w, r)
 
@@ -949,8 +949,8 @@ func (s *Server) FindRoute(method, path string) (r Route, _ bool) {
 								}
 
 								if len(elem) == 0 {
-									// Leaf: ThreeDSAuthenticationChallenge
-									r.name = "ThreeDSAuthenticationChallenge"
+									// Leaf: R3dsAuthentications3dsAuthenticationIDChallengesPost
+									r.name = "R3dsAuthentications3dsAuthenticationIDChallengesPost"
 									r.args = args
 									r.count = 1
 									return r, true
@@ -963,8 +963,8 @@ func (s *Server) FindRoute(method, path string) (r Route, _ bool) {
 								}
 
 								if len(elem) == 0 {
-									// Leaf: ThreeDSAuthenticationDeviceFingerprint
-									r.name = "ThreeDSAuthenticationDeviceFingerprint"
+									// Leaf: R3dsAuthentications3dsAuthenticationIDFingerprintsPost
+									r.name = "R3dsAuthentications3dsAuthenticationIDFingerprintsPost"
 									r.args = args
 									r.count = 1
 									return r, true

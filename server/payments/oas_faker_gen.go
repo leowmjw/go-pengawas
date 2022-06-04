@@ -886,6 +886,14 @@ func (s *PaymentCardObject) SetFake() {
 }
 
 // SetFake set fake values.
+func (s *R3dsAuthentications3dsAuthenticationIDChallengesPostReq) SetFake() {
+}
+
+// SetFake set fake values.
+func (s *R3dsAuthentications3dsAuthenticationIDFingerprintsPostReq) SetFake() {
+}
+
+// SetFake set fake values.
 func (s *Reversal) SetFake() {
 	{
 		{
@@ -1204,10 +1212,6 @@ func (s *ThreeDSAuthenticationChallengeParams) SetFake() {
 }
 
 // SetFake set fake values.
-func (s *ThreeDSAuthenticationChallengeReq) SetFake() {
-}
-
-// SetFake set fake values.
 func (s *ThreeDSAuthenticationCreate) SetFake() {
 	{
 		{
@@ -1266,10 +1270,6 @@ func (s *ThreeDSAuthenticationDeviceFingerprint) SetFake() {
 
 // SetFake set fake values.
 func (s *ThreeDSAuthenticationDeviceFingerprintParams) SetFake() {
-}
-
-// SetFake set fake values.
-func (s *ThreeDSAuthenticationDeviceFingerprintReq) SetFake() {
 }
 
 // SetFake set fake values.

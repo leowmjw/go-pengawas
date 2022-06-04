@@ -618,6 +618,30 @@ func TestPaymentCardObject_EncodeDecode(t *testing.T) {
 	var typ2 PaymentCardObject
 	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
 }
+func TestR3dsAuthentications3dsAuthenticationIDChallengesPostReq_EncodeDecode(t *testing.T) {
+	var typ R3dsAuthentications3dsAuthenticationIDChallengesPostReq
+	typ.SetFake()
+
+	e := jx.Encoder{}
+	typ.Encode(&e)
+	data := e.Bytes()
+	require.True(t, std.Valid(data), "Encoded: %s", data)
+
+	var typ2 R3dsAuthentications3dsAuthenticationIDChallengesPostReq
+	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
+}
+func TestR3dsAuthentications3dsAuthenticationIDFingerprintsPostReq_EncodeDecode(t *testing.T) {
+	var typ R3dsAuthentications3dsAuthenticationIDFingerprintsPostReq
+	typ.SetFake()
+
+	e := jx.Encoder{}
+	typ.Encode(&e)
+	data := e.Bytes()
+	require.True(t, std.Valid(data), "Encoded: %s", data)
+
+	var typ2 R3dsAuthentications3dsAuthenticationIDFingerprintsPostReq
+	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
+}
 func TestReversal_EncodeDecode(t *testing.T) {
 	var typ Reversal
 	typ.SetFake()
@@ -939,18 +963,6 @@ func TestThreeDSAuthenticationChallengeParams_Examples(t *testing.T) {
 		})
 	}
 }
-func TestThreeDSAuthenticationChallengeReq_EncodeDecode(t *testing.T) {
-	var typ ThreeDSAuthenticationChallengeReq
-	typ.SetFake()
-
-	e := jx.Encoder{}
-	typ.Encode(&e)
-	data := e.Bytes()
-	require.True(t, std.Valid(data), "Encoded: %s", data)
-
-	var typ2 ThreeDSAuthenticationChallengeReq
-	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
-}
 func TestThreeDSAuthenticationCreate_EncodeDecode(t *testing.T) {
 	var typ ThreeDSAuthenticationCreate
 	typ.SetFake()
@@ -1028,18 +1040,6 @@ func TestThreeDSAuthenticationDeviceFingerprintParams_Examples(t *testing.T) {
 			require.NoError(t, typ2.Decode(jx.DecodeBytes(e.Bytes())))
 		})
 	}
-}
-func TestThreeDSAuthenticationDeviceFingerprintReq_EncodeDecode(t *testing.T) {
-	var typ ThreeDSAuthenticationDeviceFingerprintReq
-	typ.SetFake()
-
-	e := jx.Encoder{}
-	typ.Encode(&e)
-	data := e.Bytes()
-	require.True(t, std.Valid(data), "Encoded: %s", data)
-
-	var typ2 ThreeDSAuthenticationDeviceFingerprintReq
-	require.NoError(t, typ2.Decode(jx.DecodeBytes(data)))
 }
 func TestThreeDSAuthenticationState_EncodeDecode(t *testing.T) {
 	var typ ThreeDSAuthenticationState

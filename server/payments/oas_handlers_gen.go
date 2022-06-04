@@ -976,6 +976,112 @@ func (s *Server) handleOrdersOrderIDGetRequest(args [1]string, w http.ResponseWr
 	s.duration.Record(ctx, elapsedDuration.Microseconds(), otelAttrs...)
 }
 
+// HandleR3dsAuthentications3dsAuthenticationIDChallengesPostRequest handles  operation.
+//
+// POST /3ds_authentications/{3ds_authentication_id}/challenges
+func (s *Server) handleR3dsAuthentications3dsAuthenticationIDChallengesPostRequest(args [1]string, w http.ResponseWriter, r *http.Request) {
+	startTime := time.Now()
+	otelAttrs := []attribute.KeyValue{}
+	ctx, span := s.cfg.Tracer.Start(r.Context(), "R3dsAuthentications3dsAuthenticationIDChallengesPost",
+		trace.WithAttributes(otelAttrs...),
+		trace.WithSpanKind(trace.SpanKindServer),
+	)
+	s.requests.Add(ctx, 1, otelAttrs...)
+	defer span.End()
+
+	var err error
+	params, err := decodeR3dsAuthentications3dsAuthenticationIDChallengesPostParams(args, r)
+	if err != nil {
+		err = &ogenerrors.DecodeParamsError{
+			Operation: "R3dsAuthentications3dsAuthenticationIDChallengesPost",
+			Err:       err,
+		}
+		s.badRequest(ctx, w, r, span, otelAttrs, err)
+		return
+	}
+	request, close, err := s.decodeR3dsAuthentications3dsAuthenticationIDChallengesPostRequest(r, span)
+	if err != nil {
+		err = &ogenerrors.DecodeRequestError{
+			Operation: "R3dsAuthentications3dsAuthenticationIDChallengesPost",
+			Err:       err,
+		}
+		s.badRequest(ctx, w, r, span, otelAttrs, err)
+		return
+	}
+	defer close()
+
+	response, err := s.h.R3dsAuthentications3dsAuthenticationIDChallengesPost(ctx, request, params)
+	if err != nil {
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Internal")
+		s.errors.Add(ctx, 1, otelAttrs...)
+		s.cfg.ErrorHandler(ctx, w, r, err)
+		return
+	}
+
+	if err := encodeR3dsAuthentications3dsAuthenticationIDChallengesPostResponse(response, w, span); err != nil {
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Response")
+		s.errors.Add(ctx, 1, otelAttrs...)
+		return
+	}
+	elapsedDuration := time.Since(startTime)
+	s.duration.Record(ctx, elapsedDuration.Microseconds(), otelAttrs...)
+}
+
+// HandleR3dsAuthentications3dsAuthenticationIDFingerprintsPostRequest handles  operation.
+//
+// POST /3ds_authentications/{3ds_authentication_id}/fingerprints
+func (s *Server) handleR3dsAuthentications3dsAuthenticationIDFingerprintsPostRequest(args [1]string, w http.ResponseWriter, r *http.Request) {
+	startTime := time.Now()
+	otelAttrs := []attribute.KeyValue{}
+	ctx, span := s.cfg.Tracer.Start(r.Context(), "R3dsAuthentications3dsAuthenticationIDFingerprintsPost",
+		trace.WithAttributes(otelAttrs...),
+		trace.WithSpanKind(trace.SpanKindServer),
+	)
+	s.requests.Add(ctx, 1, otelAttrs...)
+	defer span.End()
+
+	var err error
+	params, err := decodeR3dsAuthentications3dsAuthenticationIDFingerprintsPostParams(args, r)
+	if err != nil {
+		err = &ogenerrors.DecodeParamsError{
+			Operation: "R3dsAuthentications3dsAuthenticationIDFingerprintsPost",
+			Err:       err,
+		}
+		s.badRequest(ctx, w, r, span, otelAttrs, err)
+		return
+	}
+	request, close, err := s.decodeR3dsAuthentications3dsAuthenticationIDFingerprintsPostRequest(r, span)
+	if err != nil {
+		err = &ogenerrors.DecodeRequestError{
+			Operation: "R3dsAuthentications3dsAuthenticationIDFingerprintsPost",
+			Err:       err,
+		}
+		s.badRequest(ctx, w, r, span, otelAttrs, err)
+		return
+	}
+	defer close()
+
+	response, err := s.h.R3dsAuthentications3dsAuthenticationIDFingerprintsPost(ctx, request, params)
+	if err != nil {
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Internal")
+		s.errors.Add(ctx, 1, otelAttrs...)
+		s.cfg.ErrorHandler(ctx, w, r, err)
+		return
+	}
+
+	if err := encodeR3dsAuthentications3dsAuthenticationIDFingerprintsPostResponse(response, w, span); err != nil {
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Response")
+		s.errors.Add(ctx, 1, otelAttrs...)
+		return
+	}
+	elapsedDuration := time.Since(startTime)
+	s.duration.Record(ctx, elapsedDuration.Microseconds(), otelAttrs...)
+}
+
 // HandleReverseTransferByIdRequest handles ReverseTransferById operation.
 //
 // POST /transfers/{transfer_id}/reversals
@@ -1022,116 +1128,6 @@ func (s *Server) handleReverseTransferByIdRequest(args [1]string, w http.Respons
 	}
 
 	if err := encodeReverseTransferByIdResponse(response, w, span); err != nil {
-		span.RecordError(err)
-		span.SetStatus(codes.Error, "Response")
-		s.errors.Add(ctx, 1, otelAttrs...)
-		return
-	}
-	elapsedDuration := time.Since(startTime)
-	s.duration.Record(ctx, elapsedDuration.Microseconds(), otelAttrs...)
-}
-
-// HandleThreeDSAuthenticationChallengeRequest handles ThreeDSAuthenticationChallenge operation.
-//
-// POST /3ds_authentications/{3ds_authentication_id}/challenges
-func (s *Server) handleThreeDSAuthenticationChallengeRequest(args [1]string, w http.ResponseWriter, r *http.Request) {
-	startTime := time.Now()
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("ThreeDSAuthenticationChallenge"),
-	}
-	ctx, span := s.cfg.Tracer.Start(r.Context(), "ThreeDSAuthenticationChallenge",
-		trace.WithAttributes(otelAttrs...),
-		trace.WithSpanKind(trace.SpanKindServer),
-	)
-	s.requests.Add(ctx, 1, otelAttrs...)
-	defer span.End()
-
-	var err error
-	params, err := decodeThreeDSAuthenticationChallengeParams(args, r)
-	if err != nil {
-		err = &ogenerrors.DecodeParamsError{
-			Operation: "ThreeDSAuthenticationChallenge",
-			Err:       err,
-		}
-		s.badRequest(ctx, w, r, span, otelAttrs, err)
-		return
-	}
-	request, close, err := s.decodeThreeDSAuthenticationChallengeRequest(r, span)
-	if err != nil {
-		err = &ogenerrors.DecodeRequestError{
-			Operation: "ThreeDSAuthenticationChallenge",
-			Err:       err,
-		}
-		s.badRequest(ctx, w, r, span, otelAttrs, err)
-		return
-	}
-	defer close()
-
-	response, err := s.h.ThreeDSAuthenticationChallenge(ctx, request, params)
-	if err != nil {
-		span.RecordError(err)
-		span.SetStatus(codes.Error, "Internal")
-		s.errors.Add(ctx, 1, otelAttrs...)
-		s.cfg.ErrorHandler(ctx, w, r, err)
-		return
-	}
-
-	if err := encodeThreeDSAuthenticationChallengeResponse(response, w, span); err != nil {
-		span.RecordError(err)
-		span.SetStatus(codes.Error, "Response")
-		s.errors.Add(ctx, 1, otelAttrs...)
-		return
-	}
-	elapsedDuration := time.Since(startTime)
-	s.duration.Record(ctx, elapsedDuration.Microseconds(), otelAttrs...)
-}
-
-// HandleThreeDSAuthenticationDeviceFingerprintRequest handles ThreeDSAuthenticationDeviceFingerprint operation.
-//
-// POST /3ds_authentications/{3ds_authentication_id}/fingerprints
-func (s *Server) handleThreeDSAuthenticationDeviceFingerprintRequest(args [1]string, w http.ResponseWriter, r *http.Request) {
-	startTime := time.Now()
-	otelAttrs := []attribute.KeyValue{
-		otelogen.OperationID("ThreeDSAuthenticationDeviceFingerprint"),
-	}
-	ctx, span := s.cfg.Tracer.Start(r.Context(), "ThreeDSAuthenticationDeviceFingerprint",
-		trace.WithAttributes(otelAttrs...),
-		trace.WithSpanKind(trace.SpanKindServer),
-	)
-	s.requests.Add(ctx, 1, otelAttrs...)
-	defer span.End()
-
-	var err error
-	params, err := decodeThreeDSAuthenticationDeviceFingerprintParams(args, r)
-	if err != nil {
-		err = &ogenerrors.DecodeParamsError{
-			Operation: "ThreeDSAuthenticationDeviceFingerprint",
-			Err:       err,
-		}
-		s.badRequest(ctx, w, r, span, otelAttrs, err)
-		return
-	}
-	request, close, err := s.decodeThreeDSAuthenticationDeviceFingerprintRequest(r, span)
-	if err != nil {
-		err = &ogenerrors.DecodeRequestError{
-			Operation: "ThreeDSAuthenticationDeviceFingerprint",
-			Err:       err,
-		}
-		s.badRequest(ctx, w, r, span, otelAttrs, err)
-		return
-	}
-	defer close()
-
-	response, err := s.h.ThreeDSAuthenticationDeviceFingerprint(ctx, request, params)
-	if err != nil {
-		span.RecordError(err)
-		span.SetStatus(codes.Error, "Internal")
-		s.errors.Add(ctx, 1, otelAttrs...)
-		s.cfg.ErrorHandler(ctx, w, r, err)
-		return
-	}
-
-	if err := encodeThreeDSAuthenticationDeviceFingerprintResponse(response, w, span); err != nil {
 		span.RecordError(err)
 		span.SetStatus(codes.Error, "Response")
 		s.errors.Add(ctx, 1, otelAttrs...)

@@ -67,16 +67,16 @@ type ApiErrorStatusCode struct {
 	Response   ApiError
 }
 
-func (*ApiErrorStatusCode) createThreeDSAuthenticationRes()            {}
-func (*ApiErrorStatusCode) createVerificationRes()                     {}
-func (*ApiErrorStatusCode) deleteFinancialInstrumentByIdRes()          {}
-func (*ApiErrorStatusCode) getFinancialInstrumentByIdRes()             {}
-func (*ApiErrorStatusCode) getGatewayByIdRes()                         {}
-func (*ApiErrorStatusCode) getRuleByIdRes()                            {}
-func (*ApiErrorStatusCode) threeDSAuthenticationChallengeRes()         {}
-func (*ApiErrorStatusCode) threeDSAuthenticationDeviceFingerprintRes() {}
-func (*ApiErrorStatusCode) updateGatewayByIdRes()                      {}
-func (*ApiErrorStatusCode) updateRuleByIdRes()                         {}
+func (*ApiErrorStatusCode) createThreeDSAuthenticationRes()                            {}
+func (*ApiErrorStatusCode) createVerificationRes()                                     {}
+func (*ApiErrorStatusCode) deleteFinancialInstrumentByIdRes()                          {}
+func (*ApiErrorStatusCode) getFinancialInstrumentByIdRes()                             {}
+func (*ApiErrorStatusCode) getGatewayByIdRes()                                         {}
+func (*ApiErrorStatusCode) getRuleByIdRes()                                            {}
+func (*ApiErrorStatusCode) r3dsAuthentications3dsAuthenticationIDChallengesPostRes()   {}
+func (*ApiErrorStatusCode) r3dsAuthentications3dsAuthenticationIDFingerprintsPostRes() {}
+func (*ApiErrorStatusCode) updateGatewayByIdRes()                                      {}
+func (*ApiErrorStatusCode) updateRuleByIdRes()                                         {}
 
 // The information of browser collected for 3DS authentication.
 // Ref: #/components/schemas/BrowserInfo
@@ -1619,6 +1619,14 @@ type PaymentCardObject struct {
 	UpdatedAt time.Time "json:\"updated_at\""
 }
 
+// Arbitrary JSON payload passed from the 3DS provider via post message notification page to VGS
+// checkout.js.
+type R3dsAuthentications3dsAuthenticationIDChallengesPostReq struct{}
+
+// Arbitrary JSON payload passed from the 3DS provider via post message notification page to VGS
+// checkout.js.
+type R3dsAuthentications3dsAuthenticationIDFingerprintsPostReq struct{}
+
 // Ref: #/components/schemas/Reversal
 type Reversal struct {
 	Amount         OptAmount         "json:\"amount\""
@@ -1843,10 +1851,6 @@ type ThreeDSAuthenticationChallenge struct {
 // The form parameter payload for sending as a POST request to the given URL in an iframe.
 type ThreeDSAuthenticationChallengeParams struct{}
 
-// Arbitrary JSON payload passed from the 3DS provider via post message notification page to VGS
-// checkout.js.
-type ThreeDSAuthenticationChallengeReq struct{}
-
 // Ref: #/components/schemas/ThreeDSAuthenticationCreate
 type ThreeDSAuthenticationCreate struct {
 	Amount      Amount      "json:\"amount\""
@@ -1865,9 +1869,9 @@ type ThreeDSAuthenticationData struct {
 	Data ThreeDSAuthentication "json:\"data\""
 }
 
-func (*ThreeDSAuthenticationData) createThreeDSAuthenticationRes()            {}
-func (*ThreeDSAuthenticationData) threeDSAuthenticationChallengeRes()         {}
-func (*ThreeDSAuthenticationData) threeDSAuthenticationDeviceFingerprintRes() {}
+func (*ThreeDSAuthenticationData) createThreeDSAuthenticationRes()                            {}
+func (*ThreeDSAuthenticationData) r3dsAuthentications3dsAuthenticationIDChallengesPostRes()   {}
+func (*ThreeDSAuthenticationData) r3dsAuthentications3dsAuthenticationIDFingerprintsPostRes() {}
 
 type ThreeDSAuthenticationDeviceFingerprint struct {
 	// The form parameter payload for sending as a POST request to the given URL in an iframe.
@@ -1880,10 +1884,6 @@ type ThreeDSAuthenticationDeviceFingerprint struct {
 
 // The form parameter payload for sending as a POST request to the given URL in an iframe.
 type ThreeDSAuthenticationDeviceFingerprintParams struct{}
-
-// Arbitrary JSON payload passed from the 3DS provider via post message notification page to VGS
-// checkout.js.
-type ThreeDSAuthenticationDeviceFingerprintReq struct{}
 
 // `device_fingerprint` means the 3DS authentication is created and needs device fingerprint.
 // `challenge` means the 3DS provider requires the user to be challenged for approving this

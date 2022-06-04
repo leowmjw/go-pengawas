@@ -4804,6 +4804,96 @@ func (s *PaymentCardObject) UnmarshalJSON(data []byte) error {
 }
 
 // Encode implements json.Marshaler.
+func (s R3dsAuthentications3dsAuthenticationIDChallengesPostReq) Encode(e *jx.Encoder) {
+	e.ObjStart()
+	s.encodeFields(e)
+	e.ObjEnd()
+}
+
+// encodeFields encodes fields.
+func (s R3dsAuthentications3dsAuthenticationIDChallengesPostReq) encodeFields(e *jx.Encoder) {
+}
+
+var jsonFieldsNameOfR3dsAuthentications3dsAuthenticationIDChallengesPostReq = [0]string{}
+
+// Decode decodes R3dsAuthentications3dsAuthenticationIDChallengesPostReq from json.
+func (s *R3dsAuthentications3dsAuthenticationIDChallengesPostReq) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode R3dsAuthentications3dsAuthenticationIDChallengesPostReq to nil")
+	}
+
+	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
+		switch string(k) {
+		default:
+			return d.Skip()
+		}
+		return nil
+	}); err != nil {
+		return errors.Wrap(err, "decode R3dsAuthentications3dsAuthenticationIDChallengesPostReq")
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s R3dsAuthentications3dsAuthenticationIDChallengesPostReq) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *R3dsAuthentications3dsAuthenticationIDChallengesPostReq) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode implements json.Marshaler.
+func (s R3dsAuthentications3dsAuthenticationIDFingerprintsPostReq) Encode(e *jx.Encoder) {
+	e.ObjStart()
+	s.encodeFields(e)
+	e.ObjEnd()
+}
+
+// encodeFields encodes fields.
+func (s R3dsAuthentications3dsAuthenticationIDFingerprintsPostReq) encodeFields(e *jx.Encoder) {
+}
+
+var jsonFieldsNameOfR3dsAuthentications3dsAuthenticationIDFingerprintsPostReq = [0]string{}
+
+// Decode decodes R3dsAuthentications3dsAuthenticationIDFingerprintsPostReq from json.
+func (s *R3dsAuthentications3dsAuthenticationIDFingerprintsPostReq) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode R3dsAuthentications3dsAuthenticationIDFingerprintsPostReq to nil")
+	}
+
+	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
+		switch string(k) {
+		default:
+			return d.Skip()
+		}
+		return nil
+	}); err != nil {
+		return errors.Wrap(err, "decode R3dsAuthentications3dsAuthenticationIDFingerprintsPostReq")
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s R3dsAuthentications3dsAuthenticationIDFingerprintsPostReq) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *R3dsAuthentications3dsAuthenticationIDFingerprintsPostReq) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode implements json.Marshaler.
 func (s Reversal) Encode(e *jx.Encoder) {
 	e.ObjStart()
 	s.encodeFields(e)
@@ -6597,51 +6687,6 @@ func (s *ThreeDSAuthenticationChallengeParams) UnmarshalJSON(data []byte) error 
 }
 
 // Encode implements json.Marshaler.
-func (s ThreeDSAuthenticationChallengeReq) Encode(e *jx.Encoder) {
-	e.ObjStart()
-	s.encodeFields(e)
-	e.ObjEnd()
-}
-
-// encodeFields encodes fields.
-func (s ThreeDSAuthenticationChallengeReq) encodeFields(e *jx.Encoder) {
-}
-
-var jsonFieldsNameOfThreeDSAuthenticationChallengeReq = [0]string{}
-
-// Decode decodes ThreeDSAuthenticationChallengeReq from json.
-func (s *ThreeDSAuthenticationChallengeReq) Decode(d *jx.Decoder) error {
-	if s == nil {
-		return errors.New("invalid: unable to decode ThreeDSAuthenticationChallengeReq to nil")
-	}
-
-	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
-		switch string(k) {
-		default:
-			return d.Skip()
-		}
-		return nil
-	}); err != nil {
-		return errors.Wrap(err, "decode ThreeDSAuthenticationChallengeReq")
-	}
-
-	return nil
-}
-
-// MarshalJSON implements stdjson.Marshaler.
-func (s ThreeDSAuthenticationChallengeReq) MarshalJSON() ([]byte, error) {
-	e := jx.Encoder{}
-	s.Encode(&e)
-	return e.Bytes(), nil
-}
-
-// UnmarshalJSON implements stdjson.Unmarshaler.
-func (s *ThreeDSAuthenticationChallengeReq) UnmarshalJSON(data []byte) error {
-	d := jx.DecodeBytes(data)
-	return s.Decode(d)
-}
-
-// Encode implements json.Marshaler.
 func (s ThreeDSAuthenticationCreate) Encode(e *jx.Encoder) {
 	e.ObjStart()
 	s.encodeFields(e)
@@ -7072,51 +7117,6 @@ func (s ThreeDSAuthenticationDeviceFingerprintParams) MarshalJSON() ([]byte, err
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
 func (s *ThreeDSAuthenticationDeviceFingerprintParams) UnmarshalJSON(data []byte) error {
-	d := jx.DecodeBytes(data)
-	return s.Decode(d)
-}
-
-// Encode implements json.Marshaler.
-func (s ThreeDSAuthenticationDeviceFingerprintReq) Encode(e *jx.Encoder) {
-	e.ObjStart()
-	s.encodeFields(e)
-	e.ObjEnd()
-}
-
-// encodeFields encodes fields.
-func (s ThreeDSAuthenticationDeviceFingerprintReq) encodeFields(e *jx.Encoder) {
-}
-
-var jsonFieldsNameOfThreeDSAuthenticationDeviceFingerprintReq = [0]string{}
-
-// Decode decodes ThreeDSAuthenticationDeviceFingerprintReq from json.
-func (s *ThreeDSAuthenticationDeviceFingerprintReq) Decode(d *jx.Decoder) error {
-	if s == nil {
-		return errors.New("invalid: unable to decode ThreeDSAuthenticationDeviceFingerprintReq to nil")
-	}
-
-	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
-		switch string(k) {
-		default:
-			return d.Skip()
-		}
-		return nil
-	}); err != nil {
-		return errors.Wrap(err, "decode ThreeDSAuthenticationDeviceFingerprintReq")
-	}
-
-	return nil
-}
-
-// MarshalJSON implements stdjson.Marshaler.
-func (s ThreeDSAuthenticationDeviceFingerprintReq) MarshalJSON() ([]byte, error) {
-	e := jx.Encoder{}
-	s.Encode(&e)
-	return e.Bytes(), nil
-}
-
-// UnmarshalJSON implements stdjson.Unmarshaler.
-func (s *ThreeDSAuthenticationDeviceFingerprintReq) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }

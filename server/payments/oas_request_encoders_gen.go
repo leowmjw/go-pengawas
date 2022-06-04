@@ -154,6 +154,38 @@ func encodeFinalizeTransferRequestJSON(
 		return io.NopCloser(bytes.NewReader(e.Bytes())), nil
 	}, nil
 }
+func encodeR3dsAuthentications3dsAuthenticationIDChallengesPostRequestJSON(
+	req *R3dsAuthentications3dsAuthenticationIDChallengesPostReq,
+	span trace.Span,
+) (
+	data func() (io.ReadCloser, error),
+	rerr error,
+) {
+	return func() (io.ReadCloser, error) {
+		e := jx.GetEncoder()
+		defer jx.PutEncoder(e)
+		if req != nil {
+			req.Encode(e)
+		}
+		return io.NopCloser(bytes.NewReader(e.Bytes())), nil
+	}, nil
+}
+func encodeR3dsAuthentications3dsAuthenticationIDFingerprintsPostRequestJSON(
+	req *R3dsAuthentications3dsAuthenticationIDFingerprintsPostReq,
+	span trace.Span,
+) (
+	data func() (io.ReadCloser, error),
+	rerr error,
+) {
+	return func() (io.ReadCloser, error) {
+		e := jx.GetEncoder()
+		defer jx.PutEncoder(e)
+		if req != nil {
+			req.Encode(e)
+		}
+		return io.NopCloser(bytes.NewReader(e.Bytes())), nil
+	}, nil
+}
 func encodeReverseTransferByIdRequestJSON(
 	req OptReversal,
 	span trace.Span,
@@ -165,38 +197,6 @@ func encodeReverseTransferByIdRequestJSON(
 		e := jx.GetEncoder()
 		defer jx.PutEncoder(e)
 		if req.Set {
-			req.Encode(e)
-		}
-		return io.NopCloser(bytes.NewReader(e.Bytes())), nil
-	}, nil
-}
-func encodeThreeDSAuthenticationChallengeRequestJSON(
-	req *ThreeDSAuthenticationChallengeReq,
-	span trace.Span,
-) (
-	data func() (io.ReadCloser, error),
-	rerr error,
-) {
-	return func() (io.ReadCloser, error) {
-		e := jx.GetEncoder()
-		defer jx.PutEncoder(e)
-		if req != nil {
-			req.Encode(e)
-		}
-		return io.NopCloser(bytes.NewReader(e.Bytes())), nil
-	}, nil
-}
-func encodeThreeDSAuthenticationDeviceFingerprintRequestJSON(
-	req *ThreeDSAuthenticationDeviceFingerprintReq,
-	span trace.Span,
-) (
-	data func() (io.ReadCloser, error),
-	rerr error,
-) {
-	return func() (io.ReadCloser, error) {
-		e := jx.GetEncoder()
-		defer jx.PutEncoder(e)
-		if req != nil {
 			req.Encode(e)
 		}
 		return io.NopCloser(bytes.NewReader(e.Bytes())), nil

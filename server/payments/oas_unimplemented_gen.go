@@ -228,32 +228,32 @@ func (UnimplementedHandler) OrdersOrderIDGet(ctx context.Context, params OrdersO
 	return r, ht.ErrNotImplemented
 }
 
+// R3dsAuthentications3dsAuthenticationIDChallengesPost implements  operation.
+//
+// Finish the challenge step for the 3DS authentication session.
+// Mainly to be invoked by VGS checkout.js, not meant to be called by user directly.
+//
+// POST /3ds_authentications/{3ds_authentication_id}/challenges
+func (UnimplementedHandler) R3dsAuthentications3dsAuthenticationIDChallengesPost(ctx context.Context, req *R3dsAuthentications3dsAuthenticationIDChallengesPostReq, params R3dsAuthentications3dsAuthenticationIDChallengesPostParams) (r R3dsAuthentications3dsAuthenticationIDChallengesPostRes, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
+// R3dsAuthentications3dsAuthenticationIDFingerprintsPost implements  operation.
+//
+// Finish the device fingerprint step for the 3DS authentication session.
+// Mainly to be invoked by VGS checkout.js, not meant to be called by user directly.
+//
+// POST /3ds_authentications/{3ds_authentication_id}/fingerprints
+func (UnimplementedHandler) R3dsAuthentications3dsAuthenticationIDFingerprintsPost(ctx context.Context, req *R3dsAuthentications3dsAuthenticationIDFingerprintsPostReq, params R3dsAuthentications3dsAuthenticationIDFingerprintsPostParams) (r R3dsAuthentications3dsAuthenticationIDFingerprintsPostRes, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
 // ReverseTransferById implements ReverseTransferById operation.
 //
 // Reverse a specific transfer by id.
 //
 // POST /transfers/{transfer_id}/reversals
 func (UnimplementedHandler) ReverseTransferById(ctx context.Context, req OptReversal, params ReverseTransferByIdParams) (r ReverseTransferByIdRes, _ error) {
-	return r, ht.ErrNotImplemented
-}
-
-// ThreeDSAuthenticationChallenge implements ThreeDSAuthenticationChallenge operation.
-//
-// Finish the challenge step for the 3DS authentication session.
-// Mainly to be invoked by VGS checkout.js, not meant to be called by user directly.
-//
-// POST /3ds_authentications/{3ds_authentication_id}/challenges
-func (UnimplementedHandler) ThreeDSAuthenticationChallenge(ctx context.Context, req *ThreeDSAuthenticationChallengeReq, params ThreeDSAuthenticationChallengeParams) (r ThreeDSAuthenticationChallengeRes, _ error) {
-	return r, ht.ErrNotImplemented
-}
-
-// ThreeDSAuthenticationDeviceFingerprint implements ThreeDSAuthenticationDeviceFingerprint operation.
-//
-// Finish the device fingerprint step for the 3DS authentication session.
-// Mainly to be invoked by VGS checkout.js, not meant to be called by user directly.
-//
-// POST /3ds_authentications/{3ds_authentication_id}/fingerprints
-func (UnimplementedHandler) ThreeDSAuthenticationDeviceFingerprint(ctx context.Context, req *ThreeDSAuthenticationDeviceFingerprintReq, params ThreeDSAuthenticationDeviceFingerprintParams) (r ThreeDSAuthenticationDeviceFingerprintRes, _ error) {
 	return r, ht.ErrNotImplemented
 }
 
